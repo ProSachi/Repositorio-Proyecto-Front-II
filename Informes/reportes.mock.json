@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "version": "3.0.0",
+    "fuente": "mock-local-por-tarea",
+    "generadoEn": "2026-06-02T18:30:00Z",
+    "periodoDefault": "2026-1"
+  },
+  "C1": {
+    "titulo": "Notas por curso",
+    "chartType": "bar",
+    "labels": ["Backend", "Frontend", "Base de Datos", "DevOps"],
+    "values": [4.4, 4.1, 3.7, 4.0],
+    "kpiPromedio": 4.08,
+    "kpiTotal": 6
+  },
+  "C2": {
+    "titulo": "Notas por profesor",
+    "chartType": "bar",
+    "labels": ["Ana Fernandez", "Luis Martinez", "Carlos Lopez", "Clara Vega"],
+    "values": [4.5, 4.1, 3.8, 4.0],
+    "kpiPromedio": 4.02,
+    "kpiTotal": 5
+  },
+  "C3": {
+    "titulo": "Notas por estudiante",
+    "chartType": "bar",
+    "labels": ["Mariana Ruiz", "Sofia Ramirez", "Juan Perez", "Laura Gomez"],
+    "values": [4.9, 4.8, 4.7, 4.7],
+    "kpiPromedio": 3.96,
+    "kpiTotal": 120
+  }
+}
