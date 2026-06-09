@@ -1,7 +1,14 @@
 # 📚 Proyecto Integrador Sura G8
 ### Sistema de Gestión Académica — Documentación General
 
----
+## Levantamiento Proyecto
+En la terminar de bash
+-- Clonar el repositorio
+git clone https://github.com/ProSachi/Repositorio-Proyecto-Front-II.git
+-- Realizar la instalación de las dependencias
+npm install
+-- ejecutar el proyecto
+npm run start
 
 ## Tabla de contenido
 
