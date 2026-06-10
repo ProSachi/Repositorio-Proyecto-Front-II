@@ -3,11 +3,11 @@
 
 ## Levantamiento Proyecto
 En la terminar de bash
--- Clonar el repositorio
+1. Clonar el repositorio
 git clone https://github.com/ProSachi/Repositorio-Proyecto-Front-II.git
--- Realizar la instalación de las dependencias
+2. Realizar la instalación de las dependencias
 npm install
--- ejecutar el proyecto
+3. ejecutar el proyecto
 npm run start
 
 ## Tabla de contenido
