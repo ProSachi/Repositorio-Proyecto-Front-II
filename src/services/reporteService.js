@@ -75,4 +75,16 @@ export const reporteService = {
     const todos = await reporteService.listarTodos();
     return todos.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
   },
+
+   // Contrato base T6
+  getReporteData: async (reporteId, filtros = {}) => {
+    return {
+      reporteId,
+      filtros,
+      kpis: {},
+      chartData: [],
+      tableData: []
+    };
+  }
+
 };
