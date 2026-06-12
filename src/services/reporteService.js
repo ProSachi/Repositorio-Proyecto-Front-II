@@ -78,14 +78,24 @@ export const reporteService = {
 
   // Contrato base T6
   getReporteData: async (reporteId, filtros = {}) => {
-    return {
-      titulo: "",
-      chartType: "",
-      labels: [],
-      values: [],
-      kpiPromedio: 0,
-      kpiTotal: 0
+
+  const reportesValidos = ["C1", "C2", "C3"];
+
+  if (!reportesValidos.includes(reporteId)) {
+    throw {
+      code: "INVALID_REPORT",
+      message: `El reporte ${reporteId} no existe`
     };
   }
+
+  return {
+    titulo: "",
+    chartType: "",
+    labels: [],
+    values: [],
+    kpiPromedio: 0,
+    kpiTotal: 0
+  };
+}
 
 };
