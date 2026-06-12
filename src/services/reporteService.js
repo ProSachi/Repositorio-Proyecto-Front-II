@@ -76,14 +76,15 @@ export const reporteService = {
     return todos.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
   },
 
-   // Contrato base T6
+  // Contrato base T6
   getReporteData: async (reporteId, filtros = {}) => {
     return {
-      reporteId,
-      filtros,
-      kpis: {},
-      chartData: [],
-      tableData: []
+      titulo: "",
+      chartType: "",
+      labels: [],
+      values: [],
+      kpiPromedio: 0,
+      kpiTotal: 0
     };
   }
 
