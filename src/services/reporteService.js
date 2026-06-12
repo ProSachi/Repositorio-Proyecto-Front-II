@@ -88,14 +88,35 @@ export const reporteService = {
     };
   }
 
+  if (reporteId === "C1") {
+    return {
+      titulo: "Notas por Curso",
+      chartType: "bar",
+      labels: [],
+      values: [],
+      kpiPromedio: 0,
+      kpiTotal: 0
+    };
+  }
+
+  if (reporteId === "C2") {
+    return {
+      titulo: "Notas por Profesor",
+      chartType: "bar",
+      labels: [],
+      values: [],
+      kpiPromedio: 0,
+      kpiTotal: 0
+    };
+  }
+
   return {
-    titulo: "",
-    chartType: "",
+    titulo: "Notas por Estudiante",
+    chartType: "bar",
     labels: [],
     values: [],
     kpiPromedio: 0,
     kpiTotal: 0
   };
 }
-
-};
+}
