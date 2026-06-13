@@ -223,29 +223,17 @@ Todos pueden **ver** las notas. Solo los Profesores pueden **crear** y **editar*
 ### 5.7 Reportes Estadísticos
 
 **¿Para qué sirve?**
-Panel exclusivo para el Profesor con estadísticas consolidadas del sistema, divididas en dos categorías: **Académicos** y **Administrativos**.
+### 5.7 Reportes Estadísticos
 
-**¿Quién puede usarlo?**
-Exclusivamente los Profesores.
+El módulo de reportes permite visualizar información consolidada del sistema mediante componentes especializados.
 
-**¿Qué se puede hacer?**
+#### Componentes implementados
 
-**Pestaña Académica:**
-- Ver indicadores de: Promedio General, Asistencia Total, Cursos Activos y Promedio de Notas.
-- Listado de reportes académicos con: nota final, asistencia, cantidad de cursos, curso más popular, curso menos popular y desempeño general.
-
-**Pestaña Administrativa:**
-- Ver indicadores de: Total de Usuarios, Promedio de Matrícula, Calificación Docente y Porcentaje de Aprobados.
-- Listado de reportes administrativos con datos financieros y de gestión.
-
-**Funcionalidades comunes:**
-- Buscar en tiempo real dentro de la pestaña activa por: ID, período, desempeño, nombre de curso, calificación docente, entre otros.
-- Mientras hay una búsqueda activa, los indicadores KPI se ocultan para no generar confusión con datos parciales.
-- Contador de resultados visible al filtrar.
-- Botón para limpiar la búsqueda con un clic.
-- Al cambiar de pestaña (Académico ↔ Administrativo), la búsqueda se reinicia automáticamente.
-- Ver el detalle completo de cada reporte en una ventana emergente.
-- Crear y editar reportes mediante un formulario con campos diferenciados según el tipo.
+- ReportesPage.jsx: contenedor principal del módulo con espacios (slots) preparados para los reportes C1, C2 y C3.
+- ReporteC1Curso.jsx: reporte de información por curso.
+- ReporteC2Profesor.jsx: reporte de información por profesor.
+- ReporteC3Estudiante.jsx: reporte de información por estudiante.
+- reporteService.js: servicio encargado de la comunicación y obtención de datos para los reportes.
 
 ---
 
@@ -447,6 +435,7 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | Todos los listados | La búsqueda no filtraba por ID | Añadido `String(item.id).includes(q)` en cada filtro |
 | Asistencias | El servicio apuntaba a `localhost:8081/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
 
+
 ---
 
 ## 9 · Estado final del proyecto
@@ -458,8 +447,8 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | 3 | Profesores | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
 | 4 | Cursos | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
 | 5 | Asistencias | ✅ Activo | Ver: ambos (filtrado) · Registrar: solo Profesor |
-| 6 | Notas | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
-| 7 | Reportes Estadísticos | ✅ Activo | Solo Profesor |
+| 6 | Notas | ✅ Activo | Ver: ambos · Crear/Editar: Curso, Profesor y Estudiantes |
+| 7 | Reportes Estadísticos | ✅ Activo | |
 | 8 | Matrícula | ✅ Activo | Ver: ambos (filtrado) · Crear/Editar: solo Profesor |
 
 **8 de 8 módulos activos. Sistema completamente funcional.**
