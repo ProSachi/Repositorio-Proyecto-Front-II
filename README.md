@@ -1,4 +1,4 @@
-# 📚 Proyecto Integrador Sura G8
+# 📚 Proyecto Integrador Los Becados
 ### Sistema de Gestión Académica — Documentación General
 
 ## Levantamiento Proyecto
@@ -34,7 +34,7 @@ npm run start
 
 ## 1 · ¿Qué es el proyecto?
 
-**Sura G8** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo 8. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
+**Los Becados** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo de programacion de 2025-1. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
 
 El sistema distingue entre dos tipos de usuarios — **Profesores** y **Estudiantes** — y adapta todo lo que ven y pueden hacer según ese rol. Un estudiante no verá las mismas opciones que un profesor, y tampoco podrá acceder a secciones que no le correspondan, ni siquiera escribiendo la dirección directamente en el navegador.
 
@@ -223,6 +223,8 @@ Todos pueden **ver** las notas. Solo los Profesores pueden **crear** y **editar*
 ### 5.7 Reportes Estadísticos
 
 **¿Para qué sirve?**
+El reporte estadistico permite la generacion de informes visibles enfocados en curso, profesor y estudiantes 
+
 ### 5.7 Reportes Estadísticos
 
 El módulo de reportes permite visualizar información consolidada del sistema mediante componentes especializados.
