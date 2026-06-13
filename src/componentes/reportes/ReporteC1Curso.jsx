@@ -17,7 +17,7 @@ const ReporteC1Curso = () => {
     <div className="reporte-c1">
       <h3>Reporte C1 - Notas por Curso</h3>
 
-      <p>MODIFICADO PARA PRUEBA DE GIT </p>
+     <p>Este reporte muestra el rendimiento académico de los cursos registrados en el sistema.</p>
 
       <table>
          
