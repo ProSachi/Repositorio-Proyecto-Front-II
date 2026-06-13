@@ -448,7 +448,7 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | 4 | Cursos | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
 | 5 | Asistencias | ✅ Activo | Ver: ambos (filtrado) · Registrar: solo Profesor |
 | 6 | Notas | ✅ Activo | Ver: ambos · Crear/Editar: Curso, Profesor y Estudiantes |
-| 7 | Reportes Estadísticos | ✅ Activo | |
+| 7 | Reportes Estadísticos | ✅ Activo |Estudiantes, Profesor, Curso |
 | 8 | Matrícula | ✅ Activo | Ver: ambos (filtrado) · Crear/Editar: solo Profesor |
 
 **8 de 8 módulos activos. Sistema completamente funcional.**
