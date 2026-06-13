@@ -3,14 +3,10 @@ import React from "react";
 const ReporteC1Curso = () => {
 
   const cursos = [
-
-    { nombre: "Matemáticas", promedio: 4.2, estudiantes: 2.5 },
-
-    { nombre: "Programación", promedio: 4.5, estudiantes: 3.0 },
-
-    { nombre: "Bases de Datos", promedio: 4.0, estudiantes: 2.0 }
-
-  ];
+  { nombre: "Matemáticas Avanzadas", promedio: 4.6, estudiantes: 28 },
+  { nombre: "Programación Web", promedio: 4.8, estudiantes: 35 },
+  { nombre: "Bases de Datos SQL", promedio: 4.3, estudiantes: 22 }
+];
 
   const promedioGeneral =
   cursos.reduce((acc, curso) => acc + curso.promedio, 0) / cursos.length;
