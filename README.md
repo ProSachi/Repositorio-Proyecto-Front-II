@@ -223,7 +223,7 @@ Todos pueden **ver** las notas. Solo los Profesores pueden **crear** y **editar*
 ### 5.7 Reportes Estadísticos
 
 **¿Para qué sirve?**
-El reporte estadistico permite la generacion de informes visibles enfocados en curso, profesor y estudiantes 
+El reporte estadistico permite la generacion de informes visible de los curso, profesores y estudiantes 
 
 ### 5.7 Reportes Estadísticos
 
