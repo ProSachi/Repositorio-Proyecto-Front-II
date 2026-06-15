@@ -64,7 +64,6 @@ function ReporteC3Estudiante() {
     }
   };
 
-  // FILTRO + BUSCADOR
   const estudiantesFiltrados = estudiantes.filter((e) => {
     const coincideBusqueda =
       e.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -98,10 +97,9 @@ function ReporteC3Estudiante() {
   return (
     <div style={{ background: '#f5f6f8', minHeight: '100vh' }}>
 
-      {/* HEADER MEJORADO */}
       <div style={{ padding: '20px 20px 10px 20px' }}>
         <h2 style={{ margin: 0, fontSize: '22px' }}>
-          📊 Reporte de Estudiantes
+          Reporte de Estudiantes
         </h2>
 
         <p style={{
@@ -114,7 +112,6 @@ function ReporteC3Estudiante() {
         </p>
       </div>
 
-      {/* CONTROLES */}
       <div style={{
         display: 'flex',
         gap: '10px',
@@ -122,7 +119,7 @@ function ReporteC3Estudiante() {
         flexWrap: 'wrap'
       }}>
         <input
-          placeholder="Buscar por nombre o documento..."
+          placeholder="Buscar por nombre o documento"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           style={{
@@ -149,32 +146,27 @@ function ReporteC3Estudiante() {
         </select>
       </div>
 
-      {/* TARJETAS */}
       <div style={containerStyle}>
         {estudiantesFiltrados.map((e) => (
           <div
             key={e.id}
             style={cardStyle}
             onMouseOver={(ev) =>
-              ev.currentTarget.style.transform = 'translateY(-5px)'
+              (ev.currentTarget.style.transform = 'translateY(-5px)')
             }
             onMouseOut={(ev) =>
-              ev.currentTarget.style.transform = 'translateY(0px)'
+              (ev.currentTarget.style.transform = 'translateY(0px)')
             }
           >
-
-            {/* HEADER CARD */}
             <h3 style={{ marginBottom: '4px' }}>{e.nombre}</h3>
-            <small style={{ color: '#666' }}>ID: {e.id}</small>
+            <small>ID: {e.id}</small>
 
             <hr />
 
-            {/* INFO */}
             <p><strong>Documento:</strong> {e.documento}</p>
             <p><strong>Programa:</strong> {e.programa}</p>
             <p><strong>Semestre:</strong> {e.semestre}</p>
 
-            {/* KPIs */}
             <div style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -195,7 +187,6 @@ function ReporteC3Estudiante() {
 
             <hr />
 
-            {/* ESTADO */}
             <span
               style={{
                 padding: '6px 10px',
