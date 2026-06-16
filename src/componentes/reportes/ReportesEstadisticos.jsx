@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import { reporteService } from '../../services/reporteService';
 import './Reportes.css';
+import ReporteC2Profesor from './ReporteC2Profesor';
 
 // ── Helpers ──────────────────────────────────
 function valorO(val, sufijo = '') {
@@ -147,12 +148,15 @@ function ReportesEstadisticos() {
       {sinFiltrar.length > 0 && !busqueda && (
         <div className="kpi-grid">
           {pestana === 'academico' ? (
-            <KpisAcademicos reportes={academicos} />
+
+             <ReporteC2Profesor />
           ) : (
             <KpisAdministrativos reportes={administrativos} />
           )}
         </div>
-      )}
+
+)}
+
 
       {/* LISTA DE REPORTES */}
       {listaMostrada.length === 0 && !error ? (
