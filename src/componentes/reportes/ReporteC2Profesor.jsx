@@ -1,7 +1,7 @@
 import React from "react";
 
 const ReporteC2Profesor = () => {
-  // Datos simulados
+  // mocks para Rud
   const profesores = [
     { nombre: "Santiago Yosa", materia: "Front II", promedio: 4.0 },
     { nombre: "Andrés Llosa", materia: "Back II", promedio: 3.5 },
@@ -25,7 +25,7 @@ const ReporteC2Profesor = () => {
         <strong style={{ color: "#007bff" }}>{promedioGeneral.toFixed(2)}</strong>
       </div>
 
-      {/* Tabla organizada */}
+      {/* Tabla bonita*/}
       <table
         style={{
           width: "100%",
