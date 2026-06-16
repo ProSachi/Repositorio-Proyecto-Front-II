@@ -48,7 +48,16 @@ function ReportesEstadisticos() {
 
   const academicos      = reportes.filter(r => r.tipoReporte === 'ACADEMICO'      || !r.tipoReporte);
   const administrativos = reportes.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
-  const sinFiltrar      = pestana === 'academico' ? academicos : administrativos;
+  const profesores      = reportes.filter(r => r.tipoReporte === 'PROFESORES');
+  const sinFiltrar =
+  pestana === 'academico'
+    ? academicos
+    : pestana === 'administrativo'
+    ? administrativos
+    : pestana === 'profesores'
+    ? profesores
+    : [];
+
 
   const listaMostrada = busqueda.trim() === '' ? sinFiltrar : (() => {
     const q = busqueda.toLowerCase();
@@ -96,8 +105,10 @@ function ReportesEstadisticos() {
 
     
     
-      {/* PESTAÑAS */}
+ {/* PESTAÑAS */}
       <div className="reportes-tabs">
+
+      
         <button
           className={`tab-btn ${pestana === 'academico' ? 'tab-activo' : ''}`}
           onClick={() => { setPestana('academico'); setBusqueda(''); }}
@@ -112,6 +123,13 @@ function ReportesEstadisticos() {
           📄 Administrativos
           <span className="tab-badge">{administrativos.length}</span>
         </button>
+                <button
+  className={`tab-btn ${pestana === 'profesores' ? 'tab-activo' : ''}`}
+  onClick={() => { setPestana('profesores'); setBusqueda(''); }}
+>
+  👨‍🏫 Profesores
+  <span className="tab-badge">{profesores.length}</span>
+</button>
       </div>
 
       {error && <div className="reportes-error">{error}</div>}
@@ -144,18 +162,24 @@ function ReportesEstadisticos() {
         </p>
       )}
 
-      {/* RESUMEN ESTADÍSTICO (KPIs usan siempre el total de la pestaña, no el filtrado) */}
-      {sinFiltrar.length > 0 && !busqueda && (
-        <div className="kpi-grid">
-          {pestana === 'academico' ? (
+      {/* Indicador de resultados cuando hay búsqueda activa */}
+      {busqueda && (
+        <p className="reportes-resultados-info">
+          {listaMostrada.length === 0
+            ? 'Sin resultados para esa búsqueda.'
+            : `${listaMostrada.length} resultado${listaMostrada.length !== 1 ? 's' : ''} encontrado${listaMostrada.length !== 1 ? 's' : ''}`}
+        </p>
+      )}
 
-             <ReporteC2Profesor />
-          ) : (
-            <KpisAdministrativos reportes={administrativos} />
-          )}
-        </div>
-
+{/* RESUMEN ESTADÍSTICO (KPIs usan siempre el total de la pestaña, no el filtrado) */}
+{sinFiltrar.length > 0 && !busqueda && (
+  <div className="kpi-grid">
+    {pestana === 'academico' && <ReporteC2Profesor reportes={academicos} />}
+    {pestana === 'administrativo' && <KpisAdministrativos reportes={administrativos} />}
+    {pestana === 'profesores' && <KpisAcademicos reportes={profesores} />}
+  </div>
 )}
+
 
 
       {/* LISTA DE REPORTES */}
@@ -279,6 +303,8 @@ function KpisAdministrativos({ reportes }) {
     </>
   );
 }
+
+
 
 // ── Tarjeta KPI ───────────────────────────────
 function TarjetaKPI({ color, icono, label, valor, barra, sufijoBarra }) {
