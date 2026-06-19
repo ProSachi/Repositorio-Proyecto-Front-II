@@ -3,16 +3,9 @@
    ==================================== */
 
 .inicio-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #003DA5 0%, #00A3E0 50%, #0066CC 100%);
-  padding: 40px 20px;
-  position: relative;
-  overflow: hidden;
+  background-color: var(--color-bg);
 }
+
 
 /* Decoración de fondo */
 .inicio-container::before {
@@ -35,19 +28,12 @@
 }
 
 /* Tarjeta principal */
+
 .inicio-content {
-  max-width: 1000px;
-  width: 100%;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  padding: 60px 40px;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  position: relative;
-  z-index: 1;
-  animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 900px;
+  padding: 40px;
 }
+
 
 @keyframes slideInUp {
   from { opacity: 0; transform: translateY(50px); }
@@ -56,11 +42,8 @@
 
 /* Logo */
 .inicio-logo {
-  width: 200px;
-  height: auto;
-  margin-bottom: 30px;
-  animation: fadeIn 1s ease;
-  filter: drop-shadow(0 4px 12px rgba(0, 61, 165, 0.3));
+  width: 180px;
+  margin-bottom: 20px;
 }
 
 @keyframes fadeIn {
@@ -71,7 +54,7 @@
 /* Títulos */
 .inicio-titulo {
   font-size: 42px;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin-bottom: 16px;
   font-weight: bold;
   animation: slideInDown 0.8s ease;
@@ -84,14 +67,14 @@
 
 .inicio-subtitulo {
   font-size: 24px;
-  color: var(--sura-aqua);
+  color: var(--color-primary);
   margin-bottom: 20px;
   font-weight: 600;
 }
 
 .inicio-descripcion {
   font-size: 16px;
-  color: var(--sura-texto-principal);
+  color: #333;
   margin-bottom: 40px;
   line-height: 1.6;
   max-width: 650px;
@@ -108,39 +91,15 @@
   flex-wrap: wrap;
 }
 
+
 .btn-inicio {
-  padding: 16px 40px;
-  border: none;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: bold;
+  all: unset;
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  min-width: 200px;
 }
 
-.btn-primario {
-  background: linear-gradient(135deg, #003DA5 0%, #00A3E0 100%);
-  color: white;
-}
-
-.btn-primario:hover {
-  background: linear-gradient(135deg, #002A7A 0%, #0088B8 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 61, 165, 0.4);
-}
-
-.btn-secundario {
-  background: linear-gradient(135deg, #FDB913 0%, #FFA000 100%);
-  color: #003DA5;
-}
-
-.btn-secundario:hover {
-  background: linear-gradient(135deg, #E5A50B 0%, #E68A00 100%);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(253, 185, 19, 0.4);
-}
 
 /* ===== CARACTERÍSTICAS (grid de 6 módulos) ===== */
 .inicio-caracteristicas {
@@ -151,19 +110,18 @@
 }
 
 .caracteristica {
-  padding: 24px 20px;
-  background: rgba(0, 163, 224, 0.05);
+  background: var(--color-white);
   border-radius: 16px;
-  border: 2px solid rgba(0, 163, 224, 0.1);
-  transition: all 0.3s ease;
+  border: 1px solid #eee;
+  box-shadow: var(--shadow);
 }
 
+
 .caracteristica:hover {
-  background: rgba(0, 163, 224, 0.1);
-  border-color: rgba(0, 163, 224, 0.3);
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 163, 224, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
 
 .caracteristica-icono {
   font-size: 40px;
@@ -172,14 +130,14 @@
 
 .caracteristica h3 {
   font-size: 17px;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin-bottom: 8px;
   font-weight: bold;
 }
 
 .caracteristica p {
   font-size: 13px;
-  color: var(--sura-texto-principal);
+  color:#555;
   margin: 0;
   line-height: 1.5;
 }
@@ -193,7 +151,7 @@
   text-align: center;
   color: white;
   font-size: 14px;
-  background: rgba(0, 61, 165, 0.8);
+  background: var(--color-dark);
   backdrop-filter: blur(10px);
   z-index: 0;
 }
@@ -236,9 +194,22 @@
     grid-template-columns: 1fr; /* 1 columna en móvil */
     gap: 16px;
   }
+  
+.inicio-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-  .inicio-container::before {
-    width: 250px;
-    height: 250px;
-  }
+}
+
+.btn-primary {
+  background-color: var(--color-primary) !important;
+  color: white !important;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-dark) !important;
 }

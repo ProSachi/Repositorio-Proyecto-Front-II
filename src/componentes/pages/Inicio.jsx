@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import logoSura from '../../imagenes/logoSura.png';
+/* import logoSura from '../../imagenes/logoSura.png'; */
 import './Inicio.css';
 
 function Inicio() {
@@ -53,11 +53,10 @@ function Inicio() {
     <div className="inicio-container">
       <div className="inicio-content">
 
-        {/* Logo */}
-        <img src={logoSura} alt="Logo Sura" className="inicio-logo" />
-
-        {/* Título */}
-        <h1 className="inicio-titulo">Sistema Integrado Sura G8</h1>
+              {/* Título */}
+        <h1 className="inicio-titulo">
+        Sistema Académico CESDE
+        </h1>
 
         <p className="inicio-subtitulo">
           Gestión Académica Integral
@@ -71,18 +70,19 @@ function Inicio() {
         {/* Botones */}
         <div className="inicio-botones">
           <button
-            className="btn-inicio btn-primario"
-            onClick={() => navigate('/login')}
-          >
+  className="btn-inicio btn-primario btn-primary"
+  onClick={() => navigate('/login')}
+>
             🔐 Iniciar Sesión
           </button>
 
           <button
-            className="btn-inicio btn-secundario"
-            onClick={() => navigate('/registro')}
-          >
-            📝 Registrarse
-          </button>
+  className="btn-inicio btn-secundario btn-secondary"
+  onClick={() => navigate('/registro')}
+>
+  📝 Registrarse
+</button>
+
         </div>
 
         {/* Características - todos los módulos */}
