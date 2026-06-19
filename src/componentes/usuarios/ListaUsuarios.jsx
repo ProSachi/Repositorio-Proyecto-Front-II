@@ -32,10 +32,6 @@ function ListaUsuarios() {
   })();
   // ────────────────────────────────────────────────────
 
-  useEffect(() => {
-    cargarUsuarios();
-  }, []);
-
   const cargarUsuarios = async () => {
     setCargando(true);
     setError('');
@@ -109,18 +105,13 @@ function ListaUsuarios() {
         )}
       </div>
 
-      {!error && usuarios.length === 0 && (
-        <p style={{ textAlign: 'center', color: 'var(--sura-texto-secundario)' }}>
-          No hay usuarios registrados.
-        </p>
-      )}
-
       {!error && usuarios.length > 0 && usuariosFiltrados.length === 0 && (
-        <p style={{ textAlign: 'center', color: 'var(--sura-texto-secundario)' }}>
-          No se encontraron usuarios con esa búsqueda.
-        </p>
-      )}
+  <p className="usuarios-mensaje-vacio">
+    No se encontraron usuarios con esa búsqueda.
+  </p>
+)}
 
+    
       <div className="usuario-cuadricula">
         {usuariosFiltrados.map((usuario) => (
           <div className="usuario-carta" key={usuario.id}>
@@ -129,7 +120,9 @@ function ListaUsuarios() {
             <p><strong>Rol:</strong> {usuario.rol}</p>
             <p><strong>Correo:</strong> {usuario.correo}</p>
             {usuario.telefono && <p><strong>Teléfono:</strong> {usuario.telefono}</p>}
-            <button onClick={() => verDetalle(usuario.id)}>Ver detalle</button>
+            <button className="btn-primary" onClick={() => verDetalle(usuario.id)}>
+              Ver detalle
+            </button>
           </div>
         ))}
       </div>
@@ -144,9 +137,10 @@ function ListaUsuarios() {
           {usuarioSeleccionado.telefono && (
             <p><strong>Teléfono:</strong> {usuarioSeleccionado.telefono}</p>
           )}
-          <button onClick={cerrarDetalle} style={{ marginTop: '10px' }}>
+          <button className="btn-secondary usuarios-btn-cerrar" onClick={cerrarDetalle}>
             Cerrar
-          </button>
+          </button>     
+      
         </div>
       )}
     </div>

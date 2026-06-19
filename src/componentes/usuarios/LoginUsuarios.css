@@ -2,74 +2,46 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100dvh; 
-  gap: 50px; 
-  padding: 20px;
-  box-sizing: border-box;
+  height: 100vh;
+  background-color: var(--color-bg);
 }
 
-.logo-sura-login {
-  width: 400px;
-  height: auto;
-  flex-shrink: 0;
-  animation: animacion 0.6s ease;
-}
 
 .login-formulario {
-  background: var(--sura-blanco);
-  padding: 35px;
-  width: 100%;
-  max-width: 360px; 
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  animation: animacion 0.6s ease;
-  font-family: "Segoe UI", sans-serif;
+  background: var(--color-white);
+  padding: 40px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 350px;
+  text-align: center;
 }
+
 
 .login-formulario h2 {
   margin: 0 0 10px;
   text-align: center;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
+
 }
 
 .login-formulario input {
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--sura-gris-claro);
-  font-size: 14px;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  outline: none;
   transition: 0.3s;
 }
 
 .login-formulario input:focus {
-  outline: none;
-  border-color: var(--sura-azul-profundo);
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
-}
-
-.login-formulario button {
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  background: var(--sura-azul-profundo);
-  color: var(--sura-blanco);
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.login-formulario button:hover {
-  background: var(--sura-aqua);
-  color: var(--sura-azul-profundo);
-  transform: translateY(-2px);
+  border-color: var(--color-primary);
 }
 
 .login-formulario p {
   font-size: 14px;
   text-align: center;
-  color: var(--sura-texto-principal);
+  color: #555;
 }
 
 @media (max-width: 900px) {
@@ -78,11 +50,7 @@
     padding: 12px;
     gap: 24px;
   }
-  .logo-sura-login {
-    width: 250px;
-    margin-bottom: 20px;
-  }
-
+ 
   .login-formulario {
     width: 100%;
     max-width: 340px;
