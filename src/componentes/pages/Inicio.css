@@ -7,31 +7,13 @@
 }
 
 
-/* Decoración de fondo */
-.inicio-container::before {
-  content: '';
-  position: absolute;
-  bottom: -100px;
-  right: -100px;
-  width: 500px;
-  height: 500px;
-  background-image: url('../../assets/tigre-corporativo.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.08;
-  animation: floatTiger 20s ease-in-out infinite;
-}
-
-@keyframes floatTiger {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%       { transform: translateY(-30px) rotate(5deg); }
-}
-
 /* Tarjeta principal */
 
 .inicio-content {
   max-width: 900px;
   padding: 40px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 
@@ -109,16 +91,19 @@
   margin-top: 40px;
 }
 
-.caracteristica {
+.caracteristica  {  
   background: var(--color-white);
-  border-radius: 16px;
-  border: 1px solid #eee;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   box-shadow: var(--shadow);
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
 
 .caracteristica:hover {
   transform: translateY(-5px);
+  border-color: var(--color-primary); 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -196,10 +181,10 @@
   }
   
 .inicio-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+ width: 100%;
+  display: block; 
   text-align: center;
+
 }
 
 }
