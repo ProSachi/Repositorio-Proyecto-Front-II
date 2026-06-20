@@ -1,0 +1,83 @@
+.reporte-c1 {
+  background: #f5f6f8;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.reporte-c1-header h2 {
+  margin: 0;
+  color: #003366;
+}
+
+.reporte-c1-header p {
+  color: #666;
+  margin-top: 5px;
+}
+
+.reporte-c1-filtros {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.reporte-c1-input,
+.reporte-c1-select {
+  padding: 10px;
+  border: 1px solid #d6dce5;
+  border-radius: 8px;
+}
+
+.reporte-c1-input {
+  width: 250px;
+}
+
+.tabla-container {
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+.tabla-cursos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-cursos thead {
+  background: #003366;
+  color: white;
+}
+
+.tabla-cursos th {
+  padding: 14px;
+  text-align: left;
+}
+
+.tabla-cursos td {
+  padding: 12px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.tabla-cursos tbody tr:hover {
+  background: #f0f6ff;
+}
+
+.estado-activo {
+  background: #e6f7ee;
+  color: #1e8e3e;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.estado-finalizado {
+  background: #e8f0fe;
+  color: #1a73e8;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
