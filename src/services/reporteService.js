@@ -4,6 +4,10 @@
 // ====================================
 
 const API_URL = 'http://localhost:8080/apisura8/v1/reportes';
+const CURSOS_URL = 'http://localhost:8080/apisura8/v1/cursos';
+const PROFESORES_URL = 'http://localhost:8080/apisura8/v1/profesores';
+const ESTUDIANTES_URL = 'http://localhost:8080/apisura8/v1/estudiantes';
+
 
 export const reporteService = {
 
@@ -75,6 +79,51 @@ export const reporteService = {
     const todos = await reporteService.listarTodos();
     return todos.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
   },
+
+  listarCursos: async () => {
+  try {
+    const response = await fetch(CURSOS_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener cursos');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarCursos():', error);
+    throw error;
+  }
+},
+
+listarProfesores: async () => {
+  try {
+    const response = await fetch(PROFESORES_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener profesores');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarProfesores():', error);
+    throw error;
+  }
+},
+
+listarEstudiantes: async () => {
+  try {
+    const response = await fetch(ESTUDIANTES_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener estudiantes');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarEstudiantes():', error);
+    throw error;
+  }
+},
 
   // Contrato base T6
   getReporteData: async (reporteId, filtros = {}) => {
