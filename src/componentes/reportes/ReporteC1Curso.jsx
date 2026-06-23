@@ -1,12 +1,35 @@
 import React from 'react';
 
-export default function ReporteC1Curso() {
-    return (
-        <div className="reporte-slot">
-            <div className="reporte-slot-header">
-                <h3>Reporte C1 — Curso (stub)</h3>
-                <p>Espacio reservado para la implementación de T2 — notas por curso y promedio por curso.</p>
-            </div>
-        </div>
-    );
+export default function ReporteC1Curso({ reporteData }) {
+  const labels = Array.isArray(reporteData?.labels) ? reporteData.labels : [];
+  const values = Array.isArray(reporteData?.values) ? reporteData.values : [];
+
+  return (
+    <div className="reporte-slot">
+      <div className="reporte-slot-header">
+        <h3>{reporteData?.titulo ?? 'Reporte C1 — Curso'}</h3>
+        <p>Notas por curso y promedio por curso.</p>
+      </div>
+      {labels.length ? (
+        <table className="reporte-table">
+          <thead>
+            <tr>
+              <th>Curso</th>
+              <th>Nota</th>
+            </tr>
+          </thead>
+          <tbody>
+            {labels.map((label, index) => (
+              <tr key={label || index}>
+                <td>{label}</td>
+                <td>{values[index] ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="reporte-vacio">No hay datos de curso para mostrar.</div>
+      )}
+    </div>
+  );
 }
