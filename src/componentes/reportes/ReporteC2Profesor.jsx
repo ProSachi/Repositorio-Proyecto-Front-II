@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
+
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const ReporteC2Profesor = () => {
   // mocks para Rud
@@ -45,6 +50,63 @@ const ReporteC2Profesor = () => {
     profesoresOrdenados.reduce((acc, prof) => acc + prof.promedio, 0) /
     (profesoresOrdenados.length || 1);
 
+  // grafica de materias y porcenyajes, aquí estámn los datos
+  const materias = [...new Set(profesoresOrdenados.map((p) => p.materia))];
+
+  // Agrupar promedios por materia
+  const promedioPorMateria = materias.map((m) => {
+    const profesoresMateria = profesoresOrdenados.filter((p) => p.materia === m);
+    const promedioMateria =
+      profesoresMateria.reduce((acc, prof) => acc + prof.promedio, 0) /
+      profesoresMateria.length;
+    return promedioMateria;
+  });
+
+  // Calcular porcentaje de cada materia según su promedio
+  const totalPromedios = promedioPorMateria.reduce((acc, val) => acc + val, 0);
+  const porcentajes = promedioPorMateria.map(
+    (p) => ((p / totalPromedios) * 100).toFixed(2)
+  );
+
+  const dataPie = {
+    labels: materias,
+    datasets: [
+      {
+        data: porcentajes,
+        backgroundColor: ["#007bff", "#28a745", "#ffc107", "#dc3545", "#6f42c1", "#17a2b8"],
+      },
+    ],
+  };
+
+  const optionsPie = {
+    plugins: {
+      legend: {
+        position: "bottom", // etiquetas de materias debajo de la torta
+        labels: { boxWidth: 20, padding: 15 },
+      },
+      datalabels: {
+        color: "#010101",
+        formatter: (value, ctx) => {
+          // Mostrar porcentajes sobre la torta
+          return `${value}%`;
+        },
+        font: { weight: "bold", size: 9 },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            return `${context.label}: ${context.raw}%`;
+          },
+        },
+      },
+    },
+    // texto del promedio
+    centerText: {
+      display: true,
+      text: `Promedio: ${promedioGeneral.toFixed(2)}`,
+    },
+  };
+
   // Función para manejar click de los titulos (orden)
   const handleSort = (key) => {
     let direction = "asc";
@@ -61,20 +123,29 @@ const ReporteC2Profesor = () => {
         Consulta del promedio de notas por profesor y promedio general.
       </p>
 
-      {/* para buscarlos por input */}
-      <input
-        type="text"
-        placeholder="Filtrar por nombre o materia..."
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-        style={{
-          marginBottom: "1rem",
-          padding: "8px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          width: "100%",
-        }}
-      />
+      {/* gráfica de torta */}
+      <div style={{ display: "flex", alignItems: "center", marginBottom: "1.5rem" }}>
+        {/* para buscarlos por el filtro */}
+        <div style={{ flex: 1, marginRight: "2rem" }}>
+          <input
+            type="text"
+            placeholder="Filtrar por nombre o materia..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            style={{
+              marginBottom: "1rem",
+              padding: "8px",
+              borderRadius: "4px",
+              border: "1px solid #ccc",
+              width: "100%",
+            }}
+          />
+        </div>
+
+        <div style={{ width: "250px" }}>
+          <Pie data={dataPie} options={optionsPie} />
+        </div>
+      </div>
 
       {/* KPI general */}
       <div style={{ marginBottom: "1rem", fontWeight: "bold", color: "#222" }}>
@@ -136,4 +207,3 @@ const ReporteC2Profesor = () => {
 };
 
 export default ReporteC2Profesor;
-
