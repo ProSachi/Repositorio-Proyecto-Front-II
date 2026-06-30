@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react';
 import { reporteService } from '../../services/reporteService';
 import './Reportes.css';
+import ReporteC3Estudiante from './ReporteC3Estudiante';
 
 // ── Helpers ──────────────────────────────────
 function valorO(val, sufijo = '') {
@@ -153,6 +154,10 @@ function ReportesEstadisticos() {
           )}
         </div>
       )}
+
+{pestana === 'academico' && (
+  <ReporteC3Estudiante />
+)}
 
       {/* LISTA DE REPORTES */}
       {listaMostrada.length === 0 && !error ? (
