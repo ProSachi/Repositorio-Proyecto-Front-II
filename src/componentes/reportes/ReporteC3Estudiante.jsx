@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 function ReporteC3Estudiante() {
   const [busqueda, setBusqueda] = useState('');
   const [filtroEstado, setFiltroEstado] = useState('Todos');
+  const [filtroPrograma, setFiltroPrograma] = useState('Todos');
+  const [filtroSemestre, setFiltroSemestre] = useState('Todos');
+  const [ordenPromedio, setOrdenPromedio] = useState('Ninguno');
 
   const estudiantes = [
     {
@@ -46,7 +49,7 @@ function ReporteC3Estudiante() {
       programa: 'Contaduría Pública',
       semestre: 3,
       asistencia: '97%',
-      estado: 'Excelente',
+      estado: 'Aprobado',
       promedio: 4.90
     }
   ];
@@ -54,79 +57,103 @@ function ReporteC3Estudiante() {
   const getEstadoStyle = (estado) => {
     switch (estado) {
       case 'Aprobado':
-        return { background: '#e6f7ee', color: '#1e8e3e' };
-      case 'Excelente':
-        return { background: '#fff4d6', color: '#b7791f' };
+        return {
+          background: '#e6f7ee',
+          color: '#1e8e3e'
+        };
+
       case 'Reprobado':
-        return { background: '#fde8e8', color: '#c53030' };
+        return {
+          background: '#fde8e8',
+          color: '#c53030'
+        };
+
       default:
-        return { background: '#eee', color: '#333' };
+        return {
+          background: '#eee',
+          color: '#333'
+        };
     }
   };
 
-  const estudiantesFiltrados = estudiantes.filter((e) => {
-    const coincideBusqueda =
-      e.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-      e.documento.includes(busqueda);
+  const estudiantesFiltrados = estudiantes
+    .filter((e) => {
+      const coincideBusqueda =
+        e.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
+        e.documento.includes(busqueda) ||
+        e.programa.toLowerCase().includes(busqueda.toLowerCase());
 
-    const coincideEstado =
-      filtroEstado === 'Todos' || e.estado === filtroEstado;
+      const coincideEstado =
+        filtroEstado === 'Todos' || e.estado === filtroEstado;
 
-    return coincideBusqueda && coincideEstado;
-  });
+      const coincidePrograma =
+        filtroPrograma === 'Todos' ||
+        e.programa === filtroPrograma;
 
-  const containerStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '18px',
-    padding: '20px',
-    justifyContent: 'center'
-  };
+      const coincideSemestre =
+        filtroSemestre === 'Todos' ||
+        e.semestre === Number(filtroSemestre);
 
-  const cardStyle = {
-    width: '280px',
-    borderRadius: '14px',
-    padding: '16px',
-    background: '#fff',
-    border: '1px solid #e6e6e6',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
-    transition: '0.2s ease',
-    cursor: 'pointer'
-  };
+      return (
+        coincideBusqueda &&
+        coincideEstado &&
+        coincidePrograma &&
+        coincideSemestre
+      );
+    })
+    .sort((a, b) => {
+      if (ordenPromedio === 'Mayor') {
+        return b.promedio - a.promedio;
+      }
+
+      if (ordenPromedio === 'Menor') {
+        return a.promedio - b.promedio;
+      }
+
+      return 0;
+    });
 
   return (
-    <div style={{ background: '#f5f6f8', minHeight: '100vh' }}>
-
-      <div style={{ padding: '20px 20px 10px 20px' }}>
-        <h2 style={{ margin: 0, fontSize: '22px' }}>
+    <div
+      style={{
+        background: '#f5f6f8',
+        minHeight: '100vh',
+        paddingBottom: '30px'
+      }}
+    >
+      <div style={{ padding: '20px' }}>
+        <h2 style={{ margin: 0 }}>
           Reporte de Estudiantes
         </h2>
 
-        <p style={{
-          marginTop: '6px',
-          marginBottom: 0,
-          color: '#666',
-          fontSize: '14px'
-        }}>
+        <p
+          style={{
+            color: '#666',
+            marginTop: '5px'
+          }}
+        >
           Seguimiento académico individual
         </p>
       </div>
 
-      <div style={{
-        display: 'flex',
-        gap: '10px',
-        padding: '0 20px',
-        flexWrap: 'wrap'
-      }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '10px',
+          flexWrap: 'wrap',
+          padding: '0 20px 20px 20px'
+        }}
+      >
         <input
-          placeholder="Buscar por nombre o documento"
+          type="text"
+          placeholder="Buscar por nombre, documento o programa"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           style={{
             padding: '10px',
             borderRadius: '8px',
             border: '1px solid #ccc',
-            width: '250px'
+            minWidth: '280px'
           }}
         />
 
@@ -139,70 +166,147 @@ function ReporteC3Estudiante() {
             border: '1px solid #ccc'
           }}
         >
-          <option value="Todos">Todos</option>
+          <option value="Todos">Todos los estados</option>
           <option value="Aprobado">Aprobado</option>
           <option value="Reprobado">Reprobado</option>
-          <option value="Excelente">Excelente</option>
+        </select>
+
+        <select
+          value={filtroPrograma}
+          onChange={(e) => setFiltroPrograma(e.target.value)}
+          style={{
+            padding: '10px',
+            borderRadius: '8px',
+            border: '1px solid #ccc'
+          }}
+        >
+          <option value="Todos">Todos los programas</option>
+          <option value="Ingeniería de Sistemas">
+            Ingeniería de Sistemas
+          </option>
+          <option value="Ingeniería Industrial">
+            Ingeniería Industrial
+          </option>
+          <option value="Administración de Empresas">
+            Administración de Empresas
+          </option>
+          <option value="Contaduría Pública">
+            Contaduría Pública
+          </option>
+        </select>
+
+        <select
+          value={filtroSemestre}
+          onChange={(e) => setFiltroSemestre(e.target.value)}
+          style={{
+            padding: '10px',
+            borderRadius: '8px',
+            border: '1px solid #ccc'
+          }}
+        >
+          <option value="Todos">Todos los semestres</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+
+        <select
+          value={ordenPromedio}
+          onChange={(e) => setOrdenPromedio(e.target.value)}
+          style={{
+            padding: '10px',
+            borderRadius: '8px',
+            border: '1px solid #ccc'
+          }}
+        >
+          <option value="Ninguno">Ordenar promedio</option>
+          <option value="Mayor">Mayor a menor</option>
+          <option value="Menor">Menor a mayor</option>
         </select>
       </div>
 
-      <div style={containerStyle}>
-        {estudiantesFiltrados.map((e) => (
-          <div
-            key={e.id}
-            style={cardStyle}
-            onMouseOver={(ev) =>
-              (ev.currentTarget.style.transform = 'translateY(-5px)')
-            }
-            onMouseOut={(ev) =>
-              (ev.currentTarget.style.transform = 'translateY(0px)')
-            }
+      <div
+        style={{
+          padding: '0 20px'
+        }}
+      >
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: '12px',
+            overflowX: 'auto',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
+          }}
+        >
+          <table
+            style={{
+              width: '100%',
+              borderCollapse: 'collapse'
+            }}
           >
-            <h3 style={{ marginBottom: '4px' }}>{e.nombre}</h3>
-            <small>ID: {e.id}</small>
+            <thead>
+              <tr
+                style={{
+                  background: '#f0f2f5'
+                }}
+              >
+                <th style={{ padding: '12px' }}>ID</th>
+                <th style={{ padding: '12px' }}>Nombre</th>
+                <th style={{ padding: '12px' }}>Documento</th>
+                <th style={{ padding: '12px' }}>Programa</th>
+                <th style={{ padding: '12px' }}>Semestre</th>
+                <th style={{ padding: '12px' }}>Promedio</th>
+                <th style={{ padding: '12px' }}>Asistencia</th>
+                <th style={{ padding: '12px' }}>Estado</th>
+              </tr>
+            </thead>
 
-            <hr />
+            <tbody>
+              {estudiantesFiltrados.map((e) => (
+                <tr
+                  key={e.id}
+                  style={{
+                    borderBottom: '1px solid #eee'
+                  }}
+                >
+                  <td style={{ padding: '12px' }}>{e.id}</td>
+                  <td style={{ padding: '12px' }}>{e.nombre}</td>
+                  <td style={{ padding: '12px' }}>{e.documento}</td>
+                  <td style={{ padding: '12px' }}>{e.programa}</td>
+                  <td style={{ padding: '12px' }}>{e.semestre}</td>
+                  <td style={{ padding: '12px' }}>{e.promedio}</td>
+                  <td style={{ padding: '12px' }}>{e.asistencia}</td>
+                  <td style={{ padding: '12px' }}>
+                    <span
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: '20px',
+                        fontSize: '12px',
+                        fontWeight: 'bold',
+                        ...getEstadoStyle(e.estado)
+                      }}
+                    >
+                      {e.estado}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <p><strong>Documento:</strong> {e.documento}</p>
-            <p><strong>Programa:</strong> {e.programa}</p>
-            <p><strong>Semestre:</strong> {e.semestre}</p>
-
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              marginTop: '10px'
-            }}>
-              <div>
-                <strong>{e.promedio}</strong>
-                <br />
-                <small>Promedio</small>
-              </div>
-
-              <div>
-                <strong>{e.asistencia}</strong>
-                <br />
-                <small>Asistencia</small>
-              </div>
-            </div>
-
-            <hr />
-
-            <span
-              style={{
-                padding: '6px 10px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: 'bold',
-                ...getEstadoStyle(e.estado)
-              }}
-            >
-              Estado: {e.estado}
-            </span>
-
-          </div>
-        ))}
+        <p
+          style={{
+            marginTop: '15px',
+            color: '#666'
+          }}
+        >
+          Total estudiantes encontrados: {estudiantesFiltrados.length}
+        </p>
       </div>
-
     </div>
   );
 }

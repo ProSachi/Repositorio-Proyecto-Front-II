@@ -2,7 +2,7 @@
 // SERVICIO DE MATRÍCULAS
 // ====================================
 
-const API_URL = 'http://localhost:8080/apisura8/v1/matriculas';
+const API_URL = 'http://localhost:8081/apisura8/v1/matriculas';
 
 export const matriculaService = {
 

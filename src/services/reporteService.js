@@ -3,7 +3,7 @@
 // Solo accesible para rol Profesor
 // ====================================
 
-const API_URL = 'http://localhost:8080/apisura8/v1/reportes';
+const API_URL = 'http://localhost:8081/apisura8/v1/reportes';
 
 export const reporteService = {
 

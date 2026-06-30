@@ -3,7 +3,7 @@
 // Misma estructura que usuarioService y notificationService
 // ====================================
 
-const API_URL = 'http://localhost:8080/apisura8/v1/profesores';
+const API_URL = 'http://localhost:8081/apisura8/v1/profesores';
 
 export const profesorService = {
 
