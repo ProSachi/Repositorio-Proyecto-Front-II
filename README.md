@@ -1,4 +1,4 @@
-# 📚 Proyecto Integrador Los Becados
+# 📚 Proyecto Integrador Sura G8
 ### Sistema de Gestión Académica — Documentación General
 
 ## Levantamiento Proyecto
@@ -9,6 +9,10 @@ git clone https://github.com/ProSachi/Repositorio-Proyecto-Front-II.git
 npm install
 -- ejecutar el proyecto
 npm run start
+-- Se agregaron dos librerías especiales para el apartado generación de estadísticas 
+Debe proceder a hacer un:
+npm install chartjs-plugin-datalabels
+npm install chart.js react-chartjs-2
 
 ## Tabla de contenido
 
@@ -34,7 +38,7 @@ npm run start
 
 ## 1 · ¿Qué es el proyecto?
 
-**Los Becados** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo de programacion de 2025-1. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
+**Sura G8** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo de programacion de 2025-1. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
 
 El sistema distingue entre dos tipos de usuarios — **Profesores** y **Estudiantes** — y adapta todo lo que ven y pueden hacer según ese rol. Un estudiante no verá las mismas opciones que un profesor, y tampoco podrá acceder a secciones que no le correspondan, ni siquiera escribiendo la dirección directamente en el navegador.
 
@@ -76,7 +80,7 @@ El sistema tiene dos roles. Cada uno tiene acceso a distintas partes de la plata
 | Crear / editar notas | ❌ | ✅ |
 | Ver matrícula (propia) | ✅ | ✅ (todas) |
 | Crear / editar matrícula | ❌ | ✅ |
-| Reportes estadísticos | ❌ | ✅ |
+| Reportes estadísticos | ✅ | ✅ | 
 
 Si un estudiante intenta acceder por URL a una sección exclusiva para profesores, el sistema lo redirige automáticamente a su pantalla de inicio.
 
@@ -223,7 +227,7 @@ Todos pueden **ver** las notas. Solo los Profesores pueden **crear** y **editar*
 ### 5.7 Reportes Estadísticos
 
 **¿Para qué sirve?**
-El reporte estadistico permite la generacion de informes visible de los curso, profesores y estudiantes 
+El reporte estadistico permite la generacion de informes visible de los curso, profesores y estudiantes
 
 ### 5.7 Reportes Estadísticos
 
