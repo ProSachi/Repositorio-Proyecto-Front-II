@@ -231,7 +231,7 @@ El reporte estadistico permite la generacion de informes visible de los curso, p
 
 ### 5.7 Reportes Estadísticos
 
-El módulo de reportes permite visualizar información consolidada del sistema mediante componentes especializados.
+El módulo de reportes permite visualizar información consolidada del sistema mediante componentes especializados, adicional permite la generacion del reporte en formato PDF y EXCEL
 
 #### Componentes implementados
 
@@ -240,6 +240,7 @@ El módulo de reportes permite visualizar información consolidada del sistema m
 - ReporteC2Profesor.jsx: reporte de información por profesor.
 - ReporteC3Estudiante.jsx: reporte de información por estudiante.
 - reporteService.js: servicio encargado de la comunicación y obtención de datos para los reportes.
+
 
 ---
 
