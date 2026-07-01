@@ -1,6 +1,6 @@
 # 📊 Análisis Proyecto SuraG8 — Spring Boot + React
 
-> **Base API:** `http://localhost:8081/apisura8/v1/`  
+> **Base API:** `http://localhost:8080/apisura8/v1/`  
 > **Backend:** Spring Boot + JPA (H2 archivo local) · **Frontend:** React 18 (CRA)
 
 ---

@@ -3,7 +3,7 @@
 // Misma estructura que usuarioService
 // ====================================
 
-const API_URL = 'http://localhost:8081/apisura8/v1/notificaciones';
+const API_URL = 'http://localhost:8080/apisura8/v1/notificaciones';
 
 export const notificationService = {
 
