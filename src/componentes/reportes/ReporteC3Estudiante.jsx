@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { notaService } from '../../services/notaService';
 
 function ReporteC3Estudiante() {
   const [busqueda, setBusqueda] = useState('');
@@ -6,53 +7,49 @@ function ReporteC3Estudiante() {
   const [filtroPrograma, setFiltroPrograma] = useState('Todos');
   const [filtroSemestre, setFiltroSemestre] = useState('Todos');
   const [ordenPromedio, setOrdenPromedio] = useState('Ninguno');
+  const [estudiantes, setEstudiantes] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState('');
 
-  const estudiantes = [
-    {
-      id: 1001,
-      nombre: 'Juan Pérez',
-      documento: '1034567890',
-      correo: 'juan.perez@sura8.edu.co',
-      programa: 'Ingeniería de Sistemas',
-      semestre: 5,
-      asistencia: '92%',
-      estado: 'Aprobado',
-      promedio: 4.35
-    },
-    {
-      id: 1002,
-      nombre: 'María Gómez',
-      documento: '1045678901',
-      correo: 'maria.gomez@sura8.edu.co',
-      programa: 'Ingeniería Industrial',
-      semestre: 4,
-      asistencia: '95%',
-      estado: 'Aprobado',
-      promedio: 4.70
-    },
-    {
-      id: 1003,
-      nombre: 'Carlos Ramírez',
-      documento: '1056789012',
-      correo: 'carlos.ramirez@sura8.edu.co',
-      programa: 'Administración de Empresas',
-      semestre: 6,
-      asistencia: '88%',
-      estado: 'Reprobado',
-      promedio: 2.90
-    },
-    {
-      id: 1004,
-      nombre: 'Laura Martínez',
-      documento: '1067890123',
-      correo: 'laura.martinez@sura8.edu.co',
-      programa: 'Contaduría Pública',
-      semestre: 3,
-      asistencia: '97%',
-      estado: 'Aprobado',
-      promedio: 4.90
-    }
-  ];
+  useEffect(() => {
+    const cargarNotas = async () => {
+      setCargando(true);
+      setError('');
+      try {
+        const data = await notaService.listarTodas();
+        const estudiantesTransformados = (data || []).map((nota, index) => {
+          const promedio = Number(nota.nota ?? nota.promedio ?? 0);
+          const asistenciaNum = Number(nota.asistencia ?? 0);
+          const asistencia = Number.isFinite(asistenciaNum) && asistenciaNum > 0
+            ? `${asistenciaNum}%`
+            : 'N/D';
+
+          return {
+            id: nota.id ?? index + 1,
+            nombre: nota.nombreEstudiante || nota.estudiante || 'Sin nombre',
+            documento: String(nota.codigoEstudiante || nota.documento || 'N/D'),
+            correo: nota.emailEstudiante || nota.correo || '',
+            programa: nota.programa || nota.nombreMateria || 'Sin programa',
+            semestre: Number(nota.semestre) || 0,
+            asistencia,
+            estado: nota.estado || (promedio >= 3 ? 'Aprobado' : 'Reprobado'),
+            promedio
+          };
+        });
+
+        setEstudiantes(estudiantesTransformados);
+      } catch {
+        setError('No se pudieron cargar los estudiantes desde notas. Verifica la conexión con el backend.');
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarNotas();
+  }, []);
+
+  const programasDisponibles = [...new Set(estudiantes.map((e) => e.programa).filter(Boolean))];
+  const semestresDisponibles = [...new Set(estudiantes.map((e) => e.semestre).filter((s) => s > 0))].sort((a, b) => a - b);
 
   const getEstadoStyle = (estado) => {
     switch (estado) {
@@ -181,18 +178,11 @@ function ReporteC3Estudiante() {
           }}
         >
           <option value="Todos">Todos los programas</option>
-          <option value="Ingeniería de Sistemas">
-            Ingeniería de Sistemas
-          </option>
-          <option value="Ingeniería Industrial">
-            Ingeniería Industrial
-          </option>
-          <option value="Administración de Empresas">
-            Administración de Empresas
-          </option>
-          <option value="Contaduría Pública">
-            Contaduría Pública
-          </option>
+          {programasDisponibles.map((programa) => (
+            <option key={programa} value={programa}>
+              {programa}
+            </option>
+          ))}
         </select>
 
         <select
@@ -205,12 +195,11 @@ function ReporteC3Estudiante() {
           }}
         >
           <option value="Todos">Todos los semestres</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
+          {semestresDisponibles.map((semestre) => (
+            <option key={semestre} value={semestre}>
+              {semestre}
+            </option>
+          ))}
         </select>
 
         <select
@@ -241,6 +230,10 @@ function ReporteC3Estudiante() {
             boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
           }}
         >
+          {cargando && <p style={{ padding: '12px' }}>Cargando estudiantes...</p>}
+          {error && <p style={{ padding: '12px', color: '#c53030' }}>{error}</p>}
+
+          {!cargando && !error && (
           <table
             style={{
               width: '100%',
@@ -296,6 +289,7 @@ function ReporteC3Estudiante() {
               ))}
             </tbody>
           </table>
+          )}
         </div>
 
         <p
