@@ -4,6 +4,10 @@
 // ====================================
 
 const API_URL = 'http://localhost:8080/apisura8/v1/reportes';
+const CURSOS_URL = 'http://localhost:8080/apisura8/v1/cursos';
+const PROFESORES_URL = 'http://localhost:8080/apisura8/v1/profesores';
+const ESTUDIANTES_URL = 'http://localhost:8080/apisura8/v1/estudiantes';
+
 
 const MOCK_REPORTES = [
   {
@@ -152,4 +156,94 @@ export const reporteService = {
     const todos = await reporteService.listarTodos();
     return todos.filter(r => r.tipoReporte === 'ADMINISTRATIVO');
   },
+
+  listarCursos: async () => {
+  try {
+    const response = await fetch(CURSOS_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener cursos');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarCursos():', error);
+    throw error;
+  }
+},
+
+listarProfesores: async () => {
+  try {
+    const response = await fetch(PROFESORES_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener profesores');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarProfesores():', error);
+    throw error;
+  }
+},
+
+listarEstudiantes: async () => {
+  try {
+    const response = await fetch(ESTUDIANTES_URL);
+
+    if (!response.ok) {
+      throw new Error('Error al obtener estudiantes');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error en listarEstudiantes():', error);
+    throw error;
+  }
+},
+
+  // Contrato base T6
+  getReporteData: async (reporteId, filtros = {}) => {
+
+  const reportesValidos = ["C1", "C2", "C3"];
+
+  if (!reportesValidos.includes(reporteId)) {
+    throw {
+      code: "INVALID_REPORT",
+      message: `El reporte ${reporteId} no existe`
+    };
+  }
+
+  if (reporteId === "C1") {
+    return {
+      titulo: "Notas por Curso",
+      chartType: "bar",
+      labels: [],
+      values: [],
+      kpiPromedio: 0,
+      kpiTotal: 0
+    };
+  }
+
+  if (reporteId === "C2") {
+    return {
+      titulo: "Notas por Profesor",
+      chartType: "bar",
+      labels: [],
+      values: [],
+      kpiPromedio: 0,
+      kpiTotal: 0
+    };
+  }
+
+  return {
+    titulo: "Notas por Estudiante",
+    chartType: "bar",
+    labels: [],
+    values: [],
+    kpiPromedio: 0,
+    kpiTotal: 0
+  };
+}
 };
+

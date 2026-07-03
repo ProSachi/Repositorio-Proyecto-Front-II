@@ -1,25 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { profesorService } from "../../services/profesorService";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const ReporteC2Profesor = () => {
-  // mocks para Rud
-  const profesores = [
-    { nombre: "Santiago Yosa", materia: "Front II", promedio: 4.0 },
-    { nombre: "Andrés Llanos", materia: "Back II", promedio: 3.5 },
-    { nombre: "Liliana Torres", materia: "Nuevas Tecnologías", promedio: 3.7 },
-    { nombre: "Santiago Yosa", materia: "Front I", promedio: 4.5 },
-    { nombre: "Andrés Llanos", materia: "Back I", promedio: 4.0 },
-    { nombre: "Liliana Torres", materia: "Base de datos", promedio: 3.7 },
-  ];
+  const [profesores, setProfesores] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
   // comienza el filtro
   const [busqueda, setBusqueda] = useState("");
   // ordenar por estado
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+
+  useEffect(() => {
+    const cargarProfesores = async () => {
+      setCargando(true);
+      setError("");
+      try {
+        const data = await profesorService.listarTodos();
+        const profesoresTransformados = (data || []).map((profesor) => ({
+          nombre: profesor.nombreCompleto || profesor.nombre || "Sin nombre",
+          materia: profesor.areasAsignadas || profesor.especialidad || "Sin materia",
+          promedio: Number(profesor.promedio ?? profesor.calificacion ?? 0),
+        }));
+        setProfesores(profesoresTransformados);
+      } catch {
+        setError("No se pudieron cargar los profesores. Verifica la conexión con el backend.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    cargarProfesores();
+  }, []);
 
   // filtro arriba general (nom y materia)
   const profesoresFiltrados = profesores.filter(
@@ -64,9 +81,10 @@ const ReporteC2Profesor = () => {
 
   // Calcular porcentaje de cada materia según su promedio
   const totalPromedios = promedioPorMateria.reduce((acc, val) => acc + val, 0);
-  const porcentajes = promedioPorMateria.map(
-    (p) => ((p / totalPromedios) * 100).toFixed(2)
-  );
+  const porcentajes =
+    totalPromedios > 0
+      ? promedioPorMateria.map((p) => Number(((p / totalPromedios) * 100).toFixed(2)))
+      : promedioPorMateria.map(() => 0);
 
   const dataPie = {
     labels: materias,
@@ -143,9 +161,12 @@ const ReporteC2Profesor = () => {
         </div>
 
         <div style={{ width: "250px" }}>
-          <Pie data={dataPie} options={optionsPie} />
+          {!cargando && !error && materias.length > 0 && <Pie data={dataPie} options={optionsPie} />}
         </div>
       </div>
+
+      {cargando && <p style={{ marginBottom: "1rem" }}>Cargando profesores...</p>}
+      {error && <p style={{ marginBottom: "1rem", color: "#b42318" }}>{error}</p>}
 
       {/* KPI general */}
       <div style={{ marginBottom: "1rem", fontWeight: "bold", color: "#222" }}>
@@ -154,6 +175,7 @@ const ReporteC2Profesor = () => {
       </div>
 
       {/* Tabla */}
+      {!cargando && !error && (
       <table
         style={{
           width: "100%",
@@ -202,6 +224,7 @@ const ReporteC2Profesor = () => {
           ))}
         </tbody>
       </table>
+      )}
     </div>
   );
 };
