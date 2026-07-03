@@ -3,11 +3,11 @@
 
 ## Levantamiento Proyecto
 En la terminar de bash
--- Clonar el repositorio
+1. Clonar el repositorio
 git clone https://github.com/ProSachi/Repositorio-Proyecto-Front-II.git
--- Realizar la instalación de las dependencias
+2. Realizar la instalación de las dependencias
 npm install
--- ejecutar el proyecto
+3. ejecutar el proyecto
 npm run start
 
 ## Tabla de contenido
@@ -419,7 +419,7 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 |---|---|---|
 | Asistencias | Ruta con typo: `/w{id}` en lugar de `/{id}` | Corregida la anotación `@GetMapping` |
 | Asistencias | Usaba stored procedures inexistentes en H2 | Reemplazados por métodos JPA estándar (`findAll`, `save`, `findById`) |
-| Asistencias | Apuntaba a `localhost:8081` (puerto incorrecto) | Corregido a `localhost:8080` |
+| Asistencias | Apuntaba a `localhost:8080` (puerto incorrecto) | Corregido a `localhost:8080` |
 | Matrícula | Ruta base: `/apisurag8/` (con 'g' extra) | Unificada a `/apisura8/` igual que el resto |
 | Matrícula | Sin `@CrossOrigin` — bloqueaba peticiones del navegador | Añadida la anotación con los orígenes permitidos |
 | Matrícula | Sin endpoint `DELETE` | Añadido siguiendo el patrón de los demás módulos |
@@ -435,7 +435,7 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | Matrícula | Usaba componentes de librería externa (shadcn/ui) | Reemplazados por HTML/CSS estándar con el estilo Sura G8 |
 | Notificaciones | Botón ✏️ Editar visible para Estudiantes | Condicionado con `{esProfesor && <button...>}` |
 | Todos los listados | La búsqueda no filtraba por ID | Añadido `String(item.id).includes(q)` en cada filtro |
-| Asistencias | El servicio apuntaba a `localhost:8081/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
+| Asistencias | El servicio apuntaba a `localhost:8080/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
 
 
 ---

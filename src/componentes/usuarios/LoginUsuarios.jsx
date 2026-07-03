@@ -8,8 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { mostrarAlerta } from '../../utils/swalConfig';
 import { usuarioService } from '../../services/usuarioService';
 import './LoginUsuarios.css';
-import logoSura from '../../imagenes/logoSura.png';
-
+// import logoSura from '../../imagenes/logoSura.png';
 function LoginUsuarios() {
   const [login, setLogin] = useState({ correo: '', contraseña: '' });
   const [cargando, setCargando] = useState(false);
@@ -71,7 +70,6 @@ function LoginUsuarios() {
 
   return (
     <div className="contenedor-login">
-      <img src={logoSura} alt="Logo Sura" className="logo-sura-login" />
 
       <form className="login-formulario" onSubmit={envioDatos}>
         <h2>Iniciar sesión</h2>
@@ -92,7 +90,7 @@ function LoginUsuarios() {
           onChange={capturarDatos}
         />
 
-        <button type="submit" disabled={cargando}>
+        <button type="submit" className="btn-primary" disabled={cargando}>
           {cargando ? 'Entrando...' : 'Entrar'}
         </button>
 
