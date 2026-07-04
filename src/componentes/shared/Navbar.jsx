@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import './Navbar.css';
 import logoSura from '../../imagenes/logo-sura-white.png';
 
+
 const SECCIONES_COMUNES = [
   { id: 'home', icono: '🏠', label: 'Home', ruta: '/home' },
   { id: 'usuarios', icono: '👤', label: 'Usuarios', ruta: '/usuarios', soloProfesor: true },
@@ -92,6 +93,7 @@ const SECCIONES_MODULOS = [
   },
 ];
 
+
 function Navbar() {
   const navigate = useNavigate();
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -158,13 +160,19 @@ function Navbar() {
 
         <div className="acciones-derecha">
 
-        <button
-            className="btn-volver"
-            onClick={() => navigate(-1)}
-            title="Volver"
-          >
-            ← Volver
-        </button>
+
+<header className="header">
+
+  <button
+    className="btn-volver"
+    onClick={() => navigate(-1)}
+    title="Volver"
+  >
+    ← Volver
+  </button>
+
+</header>
+
 
           {/* ── Botón Dark Mode ── */}
           <button
@@ -278,5 +286,6 @@ function Navbar() {
     </>
   );
 }
+
 
 export default Navbar;
