@@ -442,7 +442,6 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | Todos los listados | La búsqueda no filtraba por ID | Añadido `String(item.id).includes(q)` en cada filtro |
 | Asistencias | El servicio apuntaba a `localhost:8080/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
 
-
 ---
 
 ## 9 · Estado final del proyecto

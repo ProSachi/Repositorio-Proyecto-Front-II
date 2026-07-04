@@ -5,7 +5,7 @@
 .home-container {
   min-height: calc(100vh - 72px);
   padding: 40px 20px;
-  background: linear-gradient(135deg, rgba(0, 61, 165, 0.05) 0%, rgba(0, 163, 224, 0.05) 100%);
+  background: var(--color-bg);
 }
 
 .home-content {
@@ -30,39 +30,42 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+
 .home-header h1 {
   font-size: 36px;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin-bottom: 12px;
   font-weight: bold;
 }
 
+
 .home-rol {
   font-size: 18px;
-  color: var(--sura-texto-principal);
+  color: #555;
   margin: 0;
 }
 
 .badge-rol-home {
-  background: linear-gradient(135deg, var(--sura-aqua) 0%, #05A3C0 100%);
+  background: var(--color-primary);
   color: white;
   padding: 6px 16px;
   border-radius: 20px;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 14px;
-  box-shadow: 0 4px 12px rgba(5, 195, 222, 0.3);
-}
+  }
+
 
 /* ===== DESCRIPCIÓN ===== */
+
 .home-descripcion {
   text-align: center;
   margin-bottom: 40px;
   padding: 20px;
-  background: rgba(0, 163, 224, 0.1);
-  backdrop-filter: blur(10px);
+  background: var(--color-white);
   border-radius: 16px;
-  border-left: 4px solid var(--sura-aqua);
+  border-left: 4px solid var(--color-primary);
+  box-shadow: var(--shadow);
   animation: fadeIn 0.8s ease;
 }
 
@@ -71,9 +74,10 @@
   to   { opacity: 1; }
 }
 
+
 .home-descripcion p {
   font-size: 16px;
-  color: var(--sura-texto-principal);
+  color: #555;
   margin: 0;
   line-height: 1.6;
 }
@@ -137,10 +141,11 @@
 }
 
 /* Bordes de color por variante */
-.tarjeta-azul:not(.tarjeta-proximamente):hover  { border-color: var(--sura-azul-medio, #003DA5); }
-.tarjeta-cyan:not(.tarjeta-proximamente):hover  { border-color: var(--sura-azul-cielo, #00A3E0); }
-.tarjeta-dorado:not(.tarjeta-proximamente):hover{ border-color: var(--sura-amarillo, #FDB913); }
-
+.tarjeta-azul:not(.tarjeta-proximamente):hover,
+.tarjeta-cyan:not(.tarjeta-proximamente):hover,
+.tarjeta-dorado:not(.tarjeta-proximamente):hover {
+  border-color: var(--color-primary);
+}
 /* ===== TARJETA PRÓXIMAMENTE ===== */
 .tarjeta-proximamente {
   opacity: 0.65;
@@ -160,25 +165,27 @@
   filter: grayscale(20%);
 }
 
+
 .tarjeta h3 {
   font-size: 22px;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin-bottom: 10px;
   font-weight: bold;
 }
 
+
+
 .tarjeta p {
   font-size: 14px;
-  color: var(--sura-texto-principal);
+  color: #555;
   margin-bottom: 15px;
-  line-height: 1.5;
 }
 
 /* ===== BADGES ===== */
+
 .badge-profesor {
-  display: inline-block;
-  background: linear-gradient(135deg, #FDB913 0%, #FFA000 100%);
-  color: #003DA5;
+  background: var(--color-primary);
+  color: white;
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 11px;
@@ -187,6 +194,7 @@
   margin-top: 8px;
   margin-right: 6px;
 }
+
 
 .badge-proximamente {
   display: inline-block;
@@ -206,7 +214,7 @@
   bottom: 20px;
   right: 20px;
   font-size: 28px;
-  color: var(--sura-aqua);
+  color: var(--color-primary);
   transition: transform 0.3s ease;
 }
 
@@ -235,12 +243,12 @@
 
 .info-estudiante p {
   margin: 0;
-  color: var(--sura-texto-principal);
+  color: #555;
   line-height: 1.6;
 }
 
 .info-estudiante strong {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
 }
 
 /* ===== ESTADÍSTICAS ===== */
@@ -273,7 +281,7 @@
 
 .estadistica p {
   font-size: 14px;
-  color: var(--sura-texto-principal);
+  color: #555;
   margin: 0;
   font-weight: 600;
 }
