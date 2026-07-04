@@ -126,10 +126,13 @@ function Home() {
     },
   ];
 
-  const irA = (tarjeta) => {
-    if (tarjeta.proximamente) return; // no navegar si aún no está listo
-    navigate(tarjeta.ruta);
-  };
+const irA = (tarjeta) => {
+  console.log("Navegando a:", tarjeta.ruta);
+
+  if (tarjeta.proximamente) return;
+
+  navigate(tarjeta.ruta);
+};
 
   return (
     <div className="home-container">
@@ -158,6 +161,7 @@ function Home() {
             if (!tarjeta.disponible) return null;
 
             return (
+              
               <div
                 key={index}
                 className={`tarjeta tarjeta-${tarjeta.color} ${tarjeta.proximamente ? 'tarjeta-proximamente' : ''}`}

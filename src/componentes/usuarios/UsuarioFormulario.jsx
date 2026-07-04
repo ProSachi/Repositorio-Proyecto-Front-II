@@ -6,10 +6,8 @@
 
 import { useState } from 'react';
 import { mostrarAlerta } from '../../utils/swalConfig';
-import Swal from 'sweetalert2';
 import { usuarioService } from '../../services/usuarioService';
 import './UsuarioFormulario.css'; // ✅ Ruta corregida (era '../usuarios/UsuarioFormulario.css')
-import logoSura from '../../imagenes/logoSura.png';
 
 function UsuarioFormulario() {
   const [usuario, setUsuario] = useState({
@@ -21,6 +19,7 @@ function UsuarioFormulario() {
   });
 
   const [error, setError] = useState('');
+
   const [cargando, setCargando] = useState(false);
 
   const capturarDatos = (e) => {
@@ -82,7 +81,6 @@ function UsuarioFormulario() {
 
   return (
     <div className="contenedor-formulario">
-      <img src={logoSura} alt="Logo Sura" className="logo-sura-formulario" />
 
       <form onSubmit={envioDatos} className="usuario-formulario">
         <h2>Registro de usuario</h2>
@@ -90,6 +88,7 @@ function UsuarioFormulario() {
         <input
           type="text"
           name="nombre"
+          className="input-cesde"
           placeholder="Nombre"
           value={usuario.nombre}
           onChange={capturarDatos}
@@ -97,18 +96,25 @@ function UsuarioFormulario() {
         <input
           type="text"
           name="correo"
-          placeholder="Correo"
+          className="input-cesde"
+          placeholder="Correo"          
           value={usuario.correo}
           onChange={capturarDatos}
         />
         <input
           type="password"
           name="contraseña"
+          className="input-cesde"
           placeholder="Contraseña"
           value={usuario.contraseña}
           onChange={capturarDatos}
         />
-        <select name="rol" value={usuario.rol} onChange={capturarDatos}>
+        <select
+  name="rol"
+  className="input-cesde"
+  value={usuario.rol}
+  onChange={capturarDatos}
+>
           <option value="">Selecciona un rol</option>
           <option value="Profesor">PROFESOR</option>
           <option value="Estudiante">ESTUDIANTE</option>
@@ -116,14 +122,19 @@ function UsuarioFormulario() {
         <input
           type="text"
           name="telefono"
+          className="input-cesde"
           placeholder="Teléfono (opcional)"
           value={usuario.telefono}
           onChange={capturarDatos}
-        />
+        />   
+        
+{error && <p className="error-mensaje">{error}</p>}
 
-        {error && <p className="error-mensaje">{error}</p>}
-
-        <button type="submit" disabled={!usuario.rol || cargando}>
+        <button
+          type="submit"
+          className="btn-primary"
+          disabled={!usuario.rol || cargando}
+        >
           {cargando ? 'Guardando...' : 'Guardar'}
         </button>
 
@@ -131,8 +142,9 @@ function UsuarioFormulario() {
           ¿Ya tienes cuenta? <a href="/login">Inicia sesión aquí</a>
         </p>
       </form>
-    </div>
-  );
+
+          </div>
+        );
 }
 
 export default UsuarioFormulario;
