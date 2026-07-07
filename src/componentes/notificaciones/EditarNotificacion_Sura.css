@@ -159,7 +159,7 @@
 }
 
 /* Fieldsets con glassmorphism */
-fieldset {
+.editar-container fieldset {
   border: 1px solid rgba(0, 61, 165, 0.2);
   border-radius: 16px;
   padding: 20px;
@@ -171,13 +171,13 @@ fieldset {
   position: relative;
 }
 
-fieldset:hover {
+.editar-container fieldset:hover {
   border-color: rgba(0, 163, 224, 0.4);
   box-shadow: 0 4px 16px rgba(0, 163, 224, 0.15);
   transform: translateY(-2px);
 }
 
-fieldset::before {
+.editar-container fieldset::before {
   content: '';
   position: absolute;
   top: 0;
@@ -191,11 +191,12 @@ fieldset::before {
   transition: opacity 0.3s ease;
 }
 
-fieldset:hover::before {
+
+.editar-container fieldset:hover::before {
   opacity: 1;
 }
 
-legend {
+.editar-container legend {
   font-weight: bold;
   color: #003DA5;
   padding: 6px 16px;
@@ -407,7 +408,7 @@ legend {
 }
 
 /* Efecto de brillo en hover de fieldsets */
-fieldset::after {
+.editar-container fieldset::after {
   content: '';
   position: absolute;
   top: 0;
@@ -420,6 +421,6 @@ fieldset::after {
   border-radius: 16px;
 }
 
-fieldset:hover::after {
+.editar-container fieldset:hover::after {
   left: 100%;
 }
