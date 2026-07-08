@@ -163,15 +163,15 @@ function Navbar() {
 
 <header className="header">
 
-  <button
-    className="btn-volver"
-    onClick={() => navigate(-1)}
-    title="Volver"
-  >
-    ← Volver
-  </button>
+        <button
+          className="btn-volver"
+          onClick={() => navigate(-1)}
+          title="Volver"
+        >
+          ← Volver
+        </button>
 
-</header>
+      </header>
 
 
           {/* ── Botón Dark Mode ── */}
