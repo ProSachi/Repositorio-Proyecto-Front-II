@@ -1,13 +1,80 @@
+import { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import './Reportes.css';
 
-function ReportesExportActions({ reporteData }) {
+// ── 1. FUNCIÓN QUE EXTRAE DATOS DEL HTML (Ahora vive escondida aquí) ──────────
+function obtenerDatosExportacionDesdeDOM(container, combinacion) {
+    if (!container) return null;
+
+    const titulo = container.querySelector('h2, h3')?.textContent?.trim() || `Reporte ${combinacion}`;
+    const tabla = container.querySelector('table');
+
+    if (!tabla) {
+        return {
+            reporteId: combinacion,
+            titulo,
+            table: { headers: [], rows: [] },
+        };
+    }
+
+    const headers = Array.from(tabla.querySelectorAll('thead th')).map((th) =>
+        th.textContent.replace(/[▲▼]/g, '').replace(/\s+/g, ' ').trim()
+    );
+
+    const rows = Array.from(tabla.querySelectorAll('tbody tr')).map((fila) =>
+        Array.from(fila.querySelectorAll('td')).map((celda) =>
+            celda.textContent.replace(/\s+/g, ' ').trim()
+        )
+    );
+
+    const textoVisible = container.textContent || '';
+    const promedioMatch = textoVisible.match(/promedio general(?: de profesores)?:\s*([0-9.,-]+)/i);
+    const totalMatch = textoVisible.match(/total estudiantes encontrados:\s*(\d+)/i);
+
+    return {
+        reporteId: combinacion,
+        titulo,
+        table: { headers, rows },
+        kpiPromedio: promedioMatch ? Number(promedioMatch[1].replace(',', '.')) : undefined,
+        kpiTotal: totalMatch ? Number(totalMatch[1]) : undefined,
+    };
+}
+
+// ── 2. COMPONENTE DE BOTONES (Recibe la referencia del contenedor del padre) ──
+function ReportesExportActions({ contenedorRef, combinacion }) {
+    // Aquí manejamos internamente los datos leídos para no ensuciar al padre
+    const [reporteData, setReporteData] = useState(null);
+
+    // El vigilante (Observer) ahora trabaja de forma privada dentro de los botones
+    useEffect(() => {
+        const contenedor = contenedorRef?.current;
+        if (!contenedor) return;
+
+        const sincronizarExportacion = () => {
+            setReporteData(obtenerDatosExportacionDesdeDOM(contenedor, combinacion));
+        };
+
+        sincronizarExportacion();
+
+        const observer = new MutationObserver(() => {
+            sincronizarExportacion();
+        });
+
+        observer.observe(contenedor, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+        });
+
+        return () => observer.disconnect();
+    }, [contenedorRef, combinacion]);
+
+    // ── Lógica original de validación y exportación ───────────────────────────
     const hasData = Boolean(
         reporteData && (
             reporteData.table?.rows?.length ||
-            (Array.isArray(reporteData.labels) && reporteData.labels.length) ||
-            (Array.isArray(reporteData.values) && reporteData.values.length)
+            reporteData.rows?.length
         )
     );
 
@@ -33,27 +100,19 @@ function ReportesExportActions({ reporteData }) {
     );
 }
 
+// ── 3. FUNCIONES DE EXPORTACIÓN (jsPDF y Excel intactas) ─────────────────────
 function getReportTable(reporte) {
-    if (Array.isArray(reporte.table?.rows) && reporte.table.rows.length) {
+    if (Array.isArray(reporte?.table?.rows) && reporte.table.rows.length) {
         return {
             headers: reporte.table.headers || [],
             rows: reporte.table.rows,
         };
     }
 
-    if (Array.isArray(reporte.labels) && reporte.labels.length) {
-        const headers = ['Etiqueta', 'Valor'];
-        const rows = reporte.labels.map((label, index) => [
-            label,
-            Array.isArray(reporte.values) ? reporte.values[index] ?? '' : '',
-        ]);
-        return { headers, rows };
-    }
-
-    if (Array.isArray(reporte.values) && reporte.values.length) {
+    if (Array.isArray(reporte?.rows) && reporte.rows.length) {
         return {
-            headers: ['Valor'],
-            rows: reporte.values.map((value) => [value]),
+            headers: Array.isArray(reporte.headers) && reporte.headers.length ? reporte.headers : [],
+            rows: reporte.rows,
         };
     }
 
