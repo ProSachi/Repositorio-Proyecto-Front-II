@@ -3,12 +3,16 @@
 
 ## Levantamiento Proyecto
 En la terminar de bash
--- Clonar el repositorio
+1. Clonar el repositorio
 git clone https://github.com/ProSachi/Repositorio-Proyecto-Front-II.git
--- Realizar la instalación de las dependencias
+2. Realizar la instalación de las dependencias
 npm install
--- ejecutar el proyecto
+3. ejecutar el proyecto
 npm run start
+-- Se agregaron dos librerías especiales para el apartado generación de estadísticas 
+Debe proceder a hacer un:
+npm install chartjs-plugin-datalabels
+npm install chart.js react-chartjs-2
 
 ## Tabla de contenido
 
@@ -34,7 +38,7 @@ npm run start
 
 ## 1 · ¿Qué es el proyecto?
 
-**Sura G8** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo 8. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
+**Sura G8** es una plataforma web de gestión académica desarrollada como proyecto integrador por el grupo de programacion de 2025-1. Permite administrar los procesos centrales de una institución educativa: registro de usuarios, cursos, asistencias, notas, matrículas, notificaciones y reportes estadísticos.
 
 El sistema distingue entre dos tipos de usuarios — **Profesores** y **Estudiantes** — y adapta todo lo que ven y pueden hacer según ese rol. Un estudiante no verá las mismas opciones que un profesor, y tampoco podrá acceder a secciones que no le correspondan, ni siquiera escribiendo la dirección directamente en el navegador.
 
@@ -76,7 +80,7 @@ El sistema tiene dos roles. Cada uno tiene acceso a distintas partes de la plata
 | Crear / editar notas | ❌ | ✅ |
 | Ver matrícula (propia) | ✅ | ✅ (todas) |
 | Crear / editar matrícula | ❌ | ✅ |
-| Reportes estadísticos | ❌ | ✅ |
+| Reportes estadísticos | ✅ | ✅ | 
 
 Si un estudiante intenta acceder por URL a una sección exclusiva para profesores, el sistema lo redirige automáticamente a su pantalla de inicio.
 
@@ -223,29 +227,20 @@ Todos pueden **ver** las notas. Solo los Profesores pueden **crear** y **editar*
 ### 5.7 Reportes Estadísticos
 
 **¿Para qué sirve?**
-Panel exclusivo para el Profesor con estadísticas consolidadas del sistema, divididas en dos categorías: **Académicos** y **Administrativos**.
+El reporte estadistico permite la generacion de informes visible de los curso, profesores y estudiantes
 
-**¿Quién puede usarlo?**
-Exclusivamente los Profesores.
+### 5.7 Reportes Estadísticos
 
-**¿Qué se puede hacer?**
+El módulo de reportes permite visualizar información consolidada del sistema mediante componentes especializados, adicional permite la generacion del reporte en formato PDF y EXCEL
 
-**Pestaña Académica:**
-- Ver indicadores de: Promedio General, Asistencia Total, Cursos Activos y Promedio de Notas.
-- Listado de reportes académicos con: nota final, asistencia, cantidad de cursos, curso más popular, curso menos popular y desempeño general.
+#### Componentes implementados
 
-**Pestaña Administrativa:**
-- Ver indicadores de: Total de Usuarios, Promedio de Matrícula, Calificación Docente y Porcentaje de Aprobados.
-- Listado de reportes administrativos con datos financieros y de gestión.
+- ReportesPage.jsx: contenedor principal del módulo con espacios (slots) preparados para los reportes C1, C2 y C3.
+- ReporteC1Curso.jsx: reporte de información por curso.
+- ReporteC2Profesor.jsx: reporte de información por profesor.
+- ReporteC3Estudiante.jsx: reporte de información por estudiante.
+- reporteService.js: servicio encargado de la comunicación y obtención de datos para los reportes.
 
-**Funcionalidades comunes:**
-- Buscar en tiempo real dentro de la pestaña activa por: ID, período, desempeño, nombre de curso, calificación docente, entre otros.
-- Mientras hay una búsqueda activa, los indicadores KPI se ocultan para no generar confusión con datos parciales.
-- Contador de resultados visible al filtrar.
-- Botón para limpiar la búsqueda con un clic.
-- Al cambiar de pestaña (Académico ↔ Administrativo), la búsqueda se reinicia automáticamente.
-- Ver el detalle completo de cada reporte en una ventana emergente.
-- Crear y editar reportes mediante un formulario con campos diferenciados según el tipo.
 
 ---
 
@@ -429,7 +424,7 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 |---|---|---|
 | Asistencias | Ruta con typo: `/w{id}` en lugar de `/{id}` | Corregida la anotación `@GetMapping` |
 | Asistencias | Usaba stored procedures inexistentes en H2 | Reemplazados por métodos JPA estándar (`findAll`, `save`, `findById`) |
-| Asistencias | Apuntaba a `localhost:8081` (puerto incorrecto) | Corregido a `localhost:8080` |
+| Asistencias | Apuntaba a `localhost:8080` (puerto incorrecto) | Corregido a `localhost:8080` |
 | Matrícula | Ruta base: `/apisurag8/` (con 'g' extra) | Unificada a `/apisura8/` igual que el resto |
 | Matrícula | Sin `@CrossOrigin` — bloqueaba peticiones del navegador | Añadida la anotación con los orígenes permitidos |
 | Matrícula | Sin endpoint `DELETE` | Añadido siguiendo el patrón de los demás módulos |
@@ -445,7 +440,8 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | Matrícula | Usaba componentes de librería externa (shadcn/ui) | Reemplazados por HTML/CSS estándar con el estilo Sura G8 |
 | Notificaciones | Botón ✏️ Editar visible para Estudiantes | Condicionado con `{esProfesor && <button...>}` |
 | Todos los listados | La búsqueda no filtraba por ID | Añadido `String(item.id).includes(q)` en cada filtro |
-| Asistencias | El servicio apuntaba a `localhost:8081/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
+| Asistencias | El servicio apuntaba a `localhost:8080/api/asistencias` | Corregido a `localhost:8080/apisura8/v1/asistencias` |
+
 
 ---
 
@@ -458,8 +454,8 @@ Durante la integración de los módulos se detectaron y resolvieron varios probl
 | 3 | Profesores | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
 | 4 | Cursos | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
 | 5 | Asistencias | ✅ Activo | Ver: ambos (filtrado) · Registrar: solo Profesor |
-| 6 | Notas | ✅ Activo | Ver: ambos · Crear/Editar: solo Profesor |
-| 7 | Reportes Estadísticos | ✅ Activo | Solo Profesor |
+| 6 | Notas | ✅ Activo | Ver: ambos · Crear/Editar: Curso, Profesor y Estudiantes |
+| 7 | Reportes Estadísticos | ✅ Activo |Estudiantes, Profesor, Curso |
 | 8 | Matrícula | ✅ Activo | Ver: ambos (filtrado) · Crear/Editar: solo Profesor |
 
 **8 de 8 módulos activos. Sistema completamente funcional.**
