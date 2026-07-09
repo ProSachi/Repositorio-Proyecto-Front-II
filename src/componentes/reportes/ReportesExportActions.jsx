@@ -1,178 +1,108 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import './Reportes.css';
 
-// ── 1. FUNCIÓN QUE EXTRAE DATOS DEL HTML (Ahora vive escondida aquí) ──────────
-function obtenerDatosExportacionDesdeDOM(container, combinacion) {
-    if (!container) return null;
+// ========== FUNCIONES AUXILIARES ==========
 
-    const titulo = container.querySelector('h2, h3')?.textContent?.trim() || `Reporte ${combinacion}`;
-    const tabla = container.querySelector('table');
+const limpiar = (texto = '') => texto.replace(/[▲▼]/g, '').replace(/\s+/g, ' ').trim();
 
-    if (!tabla) {
-        return {
-            reporteId: combinacion,
-            titulo,
-            table: { headers: [], rows: [] },
-        };
-    }
+const extraerDatos = (container, combinacion) => {
+    const tabla = container?.querySelector('table');
+    if (!tabla) return null;
 
-    const headers = Array.from(tabla.querySelectorAll('thead th')).map((th) =>
-        th.textContent.replace(/[▲▼]/g, '').replace(/\s+/g, ' ').trim()
+    const headers = Array.from(tabla.querySelectorAll('thead th')).map(el => limpiar(el.textContent));
+    const rows = Array.from(tabla.querySelectorAll('tbody tr')).map(tr =>
+        Array.from(tr.querySelectorAll('td')).map(td => limpiar(td.textContent))
     );
 
-    const rows = Array.from(tabla.querySelectorAll('tbody tr')).map((fila) =>
-        Array.from(fila.querySelectorAll('td')).map((celda) =>
-            celda.textContent.replace(/\s+/g, ' ').trim()
-        )
-    );
+    if (!rows.length) return null;
 
-    const textoVisible = container.textContent || '';
-    const promedioMatch = textoVisible.match(/promedio general(?: de profesores)?:\s*([0-9.,-]+)/i);
-    const totalMatch = textoVisible.match(/total estudiantes encontrados:\s*(\d+)/i);
+    const texto = container.textContent || '';
+
+    const promedio = texto.match(/promedio general.*?:\s*([0-9.,-]+)/i)?.[1]?.replace(',', '.');
+    const total = texto.match(/total estudiantes.*?:\s*(\d+)/i)?.[1];
+
+    const kpis = [
+        promedio && `Promedio: ${promedio}`,
+        total && `Total: ${total}`
+    ].filter(Boolean);
 
     return {
-        reporteId: combinacion,
-        titulo,
-        table: { headers, rows },
-        kpiPromedio: promedioMatch ? Number(promedioMatch[1].replace(',', '.')) : undefined,
-        kpiTotal: totalMatch ? Number(totalMatch[1]) : undefined,
+        titulo: container.querySelector('h2, h3')?.textContent?.trim() || `Reporte de ${combinacion}`,
+        nombreArchivo: `${combinacion.toLowerCase()}-reporte`,
+        headers,
+        rows,
+        kpis
     };
-}
+};
 
-// ── 2. COMPONENTE DE BOTONES (Recibe la referencia del contenedor del padre) ──
-function ReportesExportActions({ contenedorRef, combinacion }) {
-    // Aquí manejamos internamente los datos leídos para no ensuciar al padre
-    const [reporteData, setReporteData] = useState(null);
+const generarPDF = (datos) => {
+    const doc = new jsPDF({ orientation: 'landscape' });
+    const y = 18;
 
-    // El vigilante (Observer) ahora trabaja de forma privada dentro de los botones
-    useEffect(() => {
-        const contenedor = contenedorRef?.current;
-        if (!contenedor) return;
+    doc.setFontSize(16).text(datos.titulo, 14, y);
 
-        const sincronizarExportacion = () => {
-            setReporteData(obtenerDatosExportacionDesdeDOM(contenedor, combinacion));
-        };
+    if (datos.kpis.length) {
+        doc.setFontSize(10).text(datos.kpis.join('   |   '), 14, y + 8);
+    }
 
-        sincronizarExportacion();
+    autoTable(doc, {
+        startY: y + 15,
+        head: [datos.headers],
+        body: datos.rows,
+        theme: 'striped',
+        headStyles: { fillColor: [0, 85, 164] },
+        styles: { fontSize: 9 }
+    });
 
-        const observer = new MutationObserver(() => {
-            sincronizarExportacion();
-        });
+    doc.save(`${datos.nombreArchivo}.pdf`);
+};
 
-        observer.observe(contenedor, {
-            childList: true,
-            subtree: true,
-            characterData: true,
-        });
+const generarExcel = (datos) => {
+    const celdaCSV = (val = '') => `"${String(val).replace(/"/g, '""')}"`;
 
-        return () => observer.disconnect();
-    }, [contenedorRef, combinacion]);
+    const lineas = [
+        [celdaCSV('Reporte:'), celdaCSV(datos.titulo)],
+        ...datos.kpis.map(kpi => kpi.split(': ').map(celdaCSV)),
+        [],
+        datos.headers.map(celdaCSV),
+        ...datos.rows.map(row => row.map(celdaCSV))
+    ];
 
-    // ── Lógica original de validación y exportación ───────────────────────────
-    const hasData = Boolean(
-        reporteData && (
-            reporteData.table?.rows?.length ||
-            reporteData.rows?.length
-        )
-    );
+    const csvContent = '\uFEFF' + lineas.map(e => e.join(',')).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
 
-    const handleExportPDF = () => {
-        if (!hasData) return;
-        exportReportToPDF(reporteData);
-    };
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${datos.nombreArchivo}.csv`;
+    link.click();
+};
 
-    const handleExportExcel = () => {
-        if (!hasData) return;
-        exportReportToExcel(reporteData);
+// ========== COMPONENTE ==========
+
+const ReportesExportActions = ({ contenedorRef, combinacion }) => {
+    const exportar = (formato) => {
+        const datos = extraerDatos(contenedorRef?.current, combinacion);
+
+        if (!datos) {
+            alert('⚠️ No hay datos visibles en la tabla para exportar.');
+            return;
+        }
+
+        formato === 'pdf' ? generarPDF(datos) : generarExcel(datos);
     };
 
     return (
-        <div className="reporte-export-actions">
-            <button className="btn-export btn-export-pdf" onClick={handleExportPDF} disabled={!hasData}>
-                Exportar PDF
+        <div className="export-actions">
+            <button className="btn-export btn-pdf" onClick={() => exportar('pdf')}>
+                📄 Exportar PDF
             </button>
-            <button className="btn-export btn-export-excel" onClick={handleExportExcel} disabled={!hasData}>
-                Exportar Excel
+            <button className="btn-export btn-excel" onClick={() => exportar('excel')}>
+                📊 Exportar Excel
             </button>
         </div>
     );
-}
-
-// ── 3. FUNCIONES DE EXPORTACIÓN (jsPDF y Excel intactas) ─────────────────────
-function getReportTable(reporte) {
-    if (Array.isArray(reporte?.table?.rows) && reporte.table.rows.length) {
-        return {
-            headers: reporte.table.headers || [],
-            rows: reporte.table.rows,
-        };
-    }
-
-    if (Array.isArray(reporte?.rows) && reporte.rows.length) {
-        return {
-            headers: Array.isArray(reporte.headers) && reporte.headers.length ? reporte.headers : [],
-            rows: reporte.rows,
-        };
-    }
-
-    return { headers: [], rows: [] };
-}
-
-function exportReportToPDF(reporte) {
-    const doc = new jsPDF({ orientation: 'landscape' });
-    const margin = 16;
-    let y = 18;
-
-    doc.setFontSize(18);
-    doc.text(reporte.titulo || 'Reporte', margin, y);
-
-    doc.setFontSize(11);
-    y += 8;
-    if (reporte.kpiPromedio !== undefined || reporte.kpiTotal !== undefined) {
-        doc.text(`Promedio: ${reporte.kpiPromedio ?? '—'}`, margin, y);
-        doc.text(`Total: ${reporte.kpiTotal ?? '—'}`, margin + 110, y);
-        y += 10;
-    }
-
-    const { headers, rows } = getReportTable(reporte);
-    if (headers.length || rows.length) {
-        autoTable(doc, {
-            startY: y,
-            head: headers.length ? [headers] : undefined,
-            body: rows,
-            styles: { fontSize: 9 },
-            headStyles: { fillColor: [0, 85, 164], textColor: 255 },
-            theme: 'striped',
-            margin: { left: margin, right: margin },
-        });
-    } else {
-        doc.text('No hay datos visibles para exportar.', margin, y);
-    }
-
-    doc.save(`${reporte.reporteId || 'reporte'}-visible.pdf`);
-}
-
-function exportReportToExcel(reporte) {
-    const { headers, rows } = getReportTable(reporte);
-    const lines = [];
-
-    lines.push(['Reporte:', reporte.titulo || '']);
-    if (reporte.kpiPromedio !== undefined) lines.push(['Promedio', reporte.kpiPromedio]);
-    if (reporte.kpiTotal !== undefined) lines.push(['Total', reporte.kpiTotal]);
-    lines.push([]);
-
-    if (headers.length) lines.push(headers);
-    rows.forEach((row) => lines.push(row));
-
-    const csvContent = lines.map((line) => line.map((value) => `"${value ?? ''}"`).join(',')).join('\r\n');
-    const blob = new Blob([csvContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${reporte.reporteId || 'reporte'}-visible.xls`;
-    link.click();
-    URL.revokeObjectURL(url);
-}
+};
 
 export default ReportesExportActions;
