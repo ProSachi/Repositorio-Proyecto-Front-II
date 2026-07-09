@@ -100,7 +100,7 @@ function Inicio() {
 
       {/* Footer */}
       <footer className="inicio-footer">
-        <p>Proyecto Integrador - Sura G8 | 2026</p>
+        <p>Proyecto Integrador - CESDE | 2026</p>
       </footer>
     </div>
   );
