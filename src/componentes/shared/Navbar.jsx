@@ -6,7 +6,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
-import logoSura from '../../imagenes/logo-sura-white.png';
+import logoSura from '../../imagenes/new.logo.png';
 
 const SECCIONES_COMUNES = [
   { id: 'home', icono: '🏠', label: 'Home', ruta: '/home' },
@@ -92,6 +92,7 @@ const SECCIONES_MODULOS = [
   },
 ];
 
+
 function Navbar() {
   const navigate = useNavigate();
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -148,7 +149,7 @@ function Navbar() {
           <img
             src={logoSura}
             alt="Logo Sura"
-            className="logo-sura-navbar"
+            className="logo-navbar"
             onClick={() => redirigir('/home')}
             style={{ cursor: 'pointer' }}
           />
@@ -158,13 +159,19 @@ function Navbar() {
 
         <div className="acciones-derecha">
 
+
+<header className="header">
+
         <button
-            className="btn-volver"
-            onClick={() => navigate(-1)}
-            title="Volver"
-          >
-            ← Volver
+          className="btn-volver"
+          onClick={() => navigate(-1)}
+          title="Volver"
+        >
+          ← Volver
         </button>
+
+      </header>
+
 
           {/* ── Botón Dark Mode ── */}
           <button
@@ -278,5 +285,6 @@ function Navbar() {
     </>
   );
 }
+
 
 export default Navbar;

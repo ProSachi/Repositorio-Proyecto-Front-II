@@ -4,10 +4,11 @@
 
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .cursos-container {
-  padding: 35px 24px;
-  min-height: calc(100vh - 68px);
-  background: linear-gradient(135deg, rgba(0, 61, 165, 0.04) 0%, rgba(0, 163, 224, 0.04) 100%);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    135deg,
+    rgba(231,29,115,0.03) 0%,
+    rgba(205,244,42,0.03) 100%
+  );
 }
 
 /* ===== ENCABEZADO ===== */
@@ -21,7 +22,7 @@
 }
 
 .cursos-header-texto h2 {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 6px;
@@ -32,21 +33,27 @@
 .cursos-header-texto h2::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 0;
-  width: 60px; height: 3px;
-  background: linear-gradient(90deg, var(--sura-azul-profundo), var(--sura-aqua));
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
   border-radius: 2px;
 }
 
 .cursos-subtitulo {
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
   font-size: 14px;
   margin: 0;
 }
 
 .btn-nuevo-curso {
   padding: 11px 26px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 25px;
@@ -54,13 +61,13 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 30, 96, 0.25);
+  box-shadow: var(--shadow);
   white-space: nowrap;
 }
 
 .btn-nuevo-curso:hover {
+  background: var(--color-dark);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 30, 96, 0.35);
 }
 
 /* ===== FILTROS ===== */
@@ -75,35 +82,34 @@
   flex: 1;
   min-width: 220px;
   padding: 12px 20px;
-  border: 2px solid rgba(0, 30, 96, 0.12);
+  border: 2px solid rgba(231, 29, 115, 0.15);
   border-radius: 25px;
   font-size: 14px;
   background: rgba(255,255,255,0.95);
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   transition: all 0.3s ease;
 }
 
+
 .cursos-search:focus {
-  outline: none;
-  border-color: var(--sura-aqua);
-  box-shadow: 0 0 0 3px rgba(5, 195, 222, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(231, 29, 115, 0.1);
 }
 
 .cursos-select-filtro {
   padding: 12px 16px;
-  border: 2px solid rgba(0, 30, 96, 0.12);
-  border-radius: 25px;
+  border: 2px solid rgba(231, 29, 115, 0.15);
+    border-radius: 25px;
   font-size: 14px;
   background: rgba(255,255,255,0.95);
-  color: var(--sura-azul-profundo);
-  cursor: pointer;
+  color: var(--color-dark);
+    cursor: pointer;
   transition: all 0.3s ease;
   min-width: 160px;
 }
 
 .cursos-select-filtro:focus {
-  outline: none;
-  border-color: var(--sura-aqua);
+  border-color: var(--color-primary);
 }
 
 /* ===== ESTADOS ===== */
@@ -119,26 +125,19 @@
 .cursos-vacio {
   text-align: center;
   padding: 60px 20px;
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
 }
 
 .cursos-vacio-icono { font-size: 3rem; display: block; margin-bottom: 12px; }
 
 .btn-limpiar-filtros {
-  margin-top: 14px;
-  padding: 8px 20px;
-  background: rgba(5, 195, 222, 0.1);
-  color: var(--sura-aqua);
-  border: 2px solid var(--sura-aqua);
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.3s ease;
+  background: rgba(231, 29, 115, 0.08);
+  color: var(--color-primary);
+  border: 2px solid rgba(231, 29, 115, 0.2);
 }
 
 .btn-limpiar-filtros:hover {
-  background: var(--sura-aqua);
+  background: var(--color-primary);
   color: white;
 }
 
@@ -176,13 +175,9 @@
 
 /* Franja de tipo */
 .curso-tipo-franja {
-  background: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
-  color: white;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 5px 14px;
+  background: var(--color-primary);
+  color: #ffffff;
+
 }
 
 /* Badge modalidad */
@@ -203,9 +198,9 @@
 }
 
 .badge-virtual {
-  background: rgba(5, 195, 222, 0.12);
-  color: var(--sura-aqua);
-  border: 1px solid rgba(5, 195, 222, 0.3);
+  background: rgba(231, 29, 115, 0.08);
+  color: var(--color-primary);
+  border: 1px solid rgba(231, 29, 115, 0.2);
 }
 
 .curso-card-body {
@@ -214,7 +209,7 @@
 }
 
 .curso-titulo {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 1.1rem;
   font-weight: 700;
   margin: 0 0 8px;
@@ -223,13 +218,13 @@
 
 .curso-maestro {
   font-size: 13px;
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
   margin: 0 0 10px;
 }
 
 .curso-descripcion {
   font-size: 13px;
-  color: var(--sura-texto-principal, #333);
+  color: var(--color-dark);
   line-height: 1.5;
   margin: 0 0 12px;
 }
@@ -243,8 +238,8 @@
 }
 
 .curso-meta-item {
-  background: rgba(0, 30, 96, 0.06);
-  color: var(--sura-azul-profundo);
+  background: rgba(231, 29, 115, 0.08);
+  color: var(--color-dark);
   padding: 3px 10px;
   border-radius: 12px;
   font-size: 12px;
@@ -265,7 +260,7 @@
 }
 
 .cal-numero {
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
   font-size: 12px;
   font-weight: 600;
 }
@@ -282,7 +277,7 @@
 .btn-curso-ver {
   flex: 1;
   padding: 8px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 10px;
@@ -292,7 +287,10 @@
   transition: all 0.25s ease;
 }
 
-.btn-curso-ver:hover { opacity: 0.88; transform: scale(1.03); }
+.btn-curso-ver:hover {
+  background: var(--color-dark);
+  transform: scale(1.03);
+}
 
 .btn-curso-editar {
   padding: 8px 14px;
@@ -308,7 +306,7 @@
 
 .btn-curso-editar:hover {
   background: #FDB913;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   transform: scale(1.03);
 }
 
@@ -354,7 +352,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 22px 24px 18px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
+  background: var(--color-primary);
   border-radius: 20px 20px 0 0;
 }
 
@@ -405,14 +403,14 @@
 }
 
 .modal-curso-seccion h4 {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   margin: 0 0 12px;
   padding-bottom: 8px;
-  border-bottom: 2px solid rgba(5, 195, 222, 0.2);
+border-bottom: 2px solid rgba(231, 29, 115, 0.15);
 }
 
 .fila-detalle {
@@ -429,28 +427,28 @@
 
 .fila-label {
   font-weight: 600;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 13px;
   min-width: 140px;
   flex-shrink: 0;
 }
 
 .fila-valor {
-  color: var(--sura-gris-oscuro, #484949);
+color: var(--color-dark);
   font-size: 13px;
   text-align: right;
 }
 
 .fila-valor-bloque {
-  color: var(--sura-gris-oscuro, #484949);
+color: var(--color-dark);
   font-size: 13px;
   line-height: 1.5;
   margin: 6px 0 0;
 }
 
 .modal-descripcion {
-  color: var(--sura-texto-principal, #333);
-  font-size: 14px;
+  color: var(--color-dark);
+    font-size: 14px;
   line-height: 1.6;
   margin: 0;
 }
@@ -466,8 +464,8 @@
   border-left: 4px solid #FDB913;
   border-radius: 8px;
   font-size: 13px;
-  color: var(--sura-texto-principal, #333);
-}
+  color: var(--color-dark);
+  }
 
 .modal-curso-footer {
   padding: 14px 24px;
@@ -497,8 +495,11 @@
 .modal-curso::-webkit-scrollbar { width: 6px; }
 .modal-curso::-webkit-scrollbar-track { background: rgba(0,30,96,0.05); border-radius:10px; }
 .modal-curso::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--sura-azul-profundo), var(--sura-aqua));
-  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
 }
 
 /* ===== FORMULARIO ===== */
@@ -512,7 +513,7 @@
 }
 
 .curso-form-header {
-  background: linear-gradient(135deg, var(--sura-azul-profundo), var(--sura-aqua));
+  background: var(--color-primary);
   color: white;
   padding: 26px 32px;
   text-align: center;
@@ -543,9 +544,9 @@
 
 .curso-form legend {
   font-weight: 700;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   padding: 4px 14px;
-  background: rgba(5, 195, 222, 0.1);
+  background: rgba(231, 29, 115, 0.08);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -563,21 +564,21 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(5, 195, 222, 0.06);
+  background: rgba(231, 29, 115, 0.06);
   border-radius: 10px;
-  border: 1px solid rgba(5, 195, 222, 0.2);
+  border: 1px solid rgba(231, 29, 115, 0.15);
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
 .curso-presencialidad:hover {
-  background: rgba(5, 195, 222, 0.1);
+  background: rgba(231, 29, 115, 0.1);
 }
 
 .curso-presencialidad input {
   width: 18px;
   height: 18px;
-  accent-color: var(--sura-aqua);
+  accent-color: var(--color-primary);
   cursor: pointer;
   padding: 0;
   border: none;
@@ -585,7 +586,7 @@
 
 .curso-presencialidad label {
   font-weight: 600;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   cursor: pointer;
   font-size: 14px;
   margin: 0;
