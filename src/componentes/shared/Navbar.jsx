@@ -7,10 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import logoSura from '../../imagenes/new.logo.png';
+/* import logoSura from '../../imagenes/logo-sura-white.png'; */
+
 
 const SECCIONES_COMUNES = [
-  { id: 'home',     icono: '🏠', label: 'Home',     ruta: '/home' },
-  { id: 'usuarios', icono: '👤', label: 'Usuarios', ruta: '/usuarios', soloProfesor:true },
+  { id: 'home', icono: '🏠', label: 'Home', ruta: '/home' },
+  { id: 'usuarios', icono: '👤', label: 'Usuarios', ruta: '/usuarios', soloProfesor: true },
 ];
 
 const SECCIONES_MODULOS = [
@@ -21,8 +23,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Notificaciones', ruta: '/notificaciones',       soloProfesor: false },
-      { label: 'Nueva Notificación', ruta: '/notificaciones/crear', soloProfesor: true  },
+      { label: 'Ver Notificaciones', ruta: '/notificaciones', soloProfesor: false },
+      { label: 'Nueva Notificación', ruta: '/notificaciones/crear', soloProfesor: true },
     ],
   },
   {
@@ -32,8 +34,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Profesores', ruta: '/profesores',       soloProfesor: false },
-      { label: 'Nuevo Profesor', ruta: '/profesores/crear', soloProfesor: true  },
+      { label: 'Ver Profesores', ruta: '/profesores', soloProfesor: false },
+      { label: 'Nuevo Profesor', ruta: '/profesores/crear', soloProfesor: true },
     ],
   },
   {
@@ -43,8 +45,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Asistencias',      ruta: '/asistencias',       soloProfesor: false },
-      { label: 'Registrar Asistencia', ruta: '/asistencias/crear', soloProfesor: true  },
+      { label: 'Ver Asistencias', ruta: '/asistencias', soloProfesor: false },
+      { label: 'Registrar Asistencia', ruta: '/asistencias/crear', soloProfesor: true },
     ],
   },
   {
@@ -54,8 +56,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Cursos',  ruta: '/cursos',       soloProfesor: false },
-      { label: 'Nuevo Curso', ruta: '/cursos/crear', soloProfesor: true  },
+      { label: 'Ver Cursos', ruta: '/cursos', soloProfesor: false },
+      { label: 'Nuevo Curso', ruta: '/cursos/crear', soloProfesor: true },
     ],
   },
   {
@@ -65,8 +67,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Notas',  ruta: '/notas',       soloProfesor: false },
-      { label: 'Nueva Nota', ruta: '/notas/crear', soloProfesor: true  },
+      { label: 'Ver Notas', ruta: '/notas', soloProfesor: false },
+      { label: 'Nueva Nota', ruta: '/notas/crear', soloProfesor: true },
     ],
   },
   {
@@ -76,8 +78,8 @@ const SECCIONES_MODULOS = [
     soloProfesor: false,
     proximamente: false,
     items: [
-      { label: 'Ver Matrículas',  ruta: '/matricula',       soloProfesor: false },
-      { label: 'Nueva Matrícula', ruta: '/matricula/crear', soloProfesor: true  },
+      { label: 'Ver Matrículas', ruta: '/matricula', soloProfesor: false },
+      { label: 'Nueva Matrícula', ruta: '/matricula/crear', soloProfesor: true },
     ],
   },
   {
@@ -92,10 +94,11 @@ const SECCIONES_MODULOS = [
   },
 ];
 
+
 function Navbar() {
   const navigate = useNavigate();
   const [menuAbierto, setMenuAbierto] = useState(false);
-  const [expandidos,  setExpandidos]  = useState({});
+  const [expandidos, setExpandidos] = useState({});
 
   // ── Dark Mode ──────────────────────────────
   // Se persiste en localStorage para que sobreviva recargas
@@ -115,7 +118,7 @@ function Navbar() {
   const toggleDark = () => setDarkMode(prev => !prev);
   // ──────────────────────────────────────────
 
-  const usuario    = JSON.parse(localStorage.getItem('usuario'));
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
   const esProfesor = usuario?.rol === 'Profesor';
 
   const salir = () => {
@@ -156,7 +159,27 @@ function Navbar() {
           <span className="badge-rol">{usuario?.rol}</span>
         </div>
 
+        
+<div className="navbar-sura-izquierda">
+  <h3>Hola, {usuario?.nombre}</h3>
+  <span className="badge-rol">{usuario?.rol}</span>
+</div>
+
         <div className="acciones-derecha">
+
+
+<header className="header">
+
+        <button
+          className="btn-volver"
+          onClick={() => navigate(-1)}
+          title="Volver"
+        >
+          ← Volver
+        </button>
+
+      </header>
+
 
           {/* ── Botón Dark Mode ── */}
           <button
@@ -270,5 +293,6 @@ function Navbar() {
     </>
   );
 }
+
 
 export default Navbar;

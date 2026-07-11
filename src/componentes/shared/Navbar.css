@@ -13,6 +13,22 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave inferior */
   border-bottom: 1px solid #e2e8f0;
   box-sizing: border-box;
+
+  padding: 14px 32px;
+
+  /* ✅ FIX DARK MODE: color fijo dedicado, NO usa --sura-azul-profundo
+     para que no se vea afectado cuando esa variable cambia en dark mode */
+background: var(--color-white);
+color: var(--color-dark);
+
+
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: 68px;
+  transition: background 0.35s ease;
 }
 
 /* Dark mode: navbar se oscurece elegantemente pero NUNCA se aclara */
@@ -35,6 +51,10 @@ body.dark .navbar {
   font-size: 1.2rem;
   font-weight: 600;
   white-space: nowrap;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+color: var(--color-dark) !important;
 }
 
 .logo-navbar {
@@ -61,14 +81,14 @@ body.dark .navbar {
 
 /* Badge rol en la navbar — siempre con su color aqua */
 .badge-rol {
-  background: linear-gradient(135deg, #05C3DE 0%, #05A3C0 100%);
-  color: #001E60;
+  background: var(--color-primary);
+  color: white;
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
-  box-shadow: 0 2px 8px rgba(5, 195, 222, 0.35);
+  box-shadow: var(--shadow);
 }
 
 body.dark .badge-rol {
@@ -80,6 +100,8 @@ body.dark .badge-rol {
   display: flex;
   align-items: center;
   gap: 16px;
+  gap: 12px;
+  flex-wrap: 12px;
 }
 
 .contenedor-menu {
@@ -92,6 +114,12 @@ body.dark .badge-rol {
   border: none;
   color: #0f172a !important; 
   font-size: 1.6rem; 
+
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 8px 12px;
+  border-radius: 8px;
   cursor: pointer;
   padding: 4px 8px;
   display: flex;
@@ -101,10 +129,10 @@ body.dark .badge-rol {
 }
 
 .boton-menu:hover {
-  background: #ffffff;
-  color: #001E60;
-  transform: scale(1.05);
+  background: var(--color-primary);
+  color: white;
 }
+
 
 body.dark .boton-menu {
   border-color: rgba(255,255,255,0.6) !important;
@@ -132,6 +160,87 @@ body.dark .boton-menu:hover {
   flex-shrink: 0;
   color: #ffffff;
 }
+ 
+/* ===== BOTÓN VOLVER ===== */
+
+/* ===== NAVBAR CONTENEDOR PRINCIPAL ===== */
+.navbar,
+.navbar-sura-izquierda,
+.acciones-derecha{
+  display:flex;
+  align-items:center;
+}
+
+/* 🔥 CLAVE: evita recorte en cualquier modo */
+.navbar{
+  justify-content:space-between;
+  width:100%;
+  overflow:visible !important;
+  position:relative;
+}
+
+/* ===== LADO DERECHO ===== */
+.acciones-derecha{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  flex-shrink:0;
+  min-width:max-content;
+  overflow:visible !important;
+}
+
+/* ===== BOTÓN VOLVER ===== */
+.btn-volver{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  white-space:nowrap;
+
+  flex-shrink:0;
+
+  padding:10px 22px;
+
+  position:relative;
+  z-index:9999;
+}
+
+/* ===== MODO CLARO (SOLO COLORES, NO LAYOUT) ===== */
+body:not(.dark) .btn-volver{
+  background:#fff;
+  color:#001b60;
+  border:1px solid #d7deef;
+}
+
+/* ===== MODO OSCURO ===== */
+body.dark .btn-volver{
+  background:rgba(66, 63, 63, 0.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+
+.spacer{
+    width:100%;
+}
+
+.btn-volver:hover {
+  background: #ffffff;
+  color: #001860;
+}
+
+/* Modo oscuro */
+body.dark .btn-volver {
+  border-color: rgba(255,255,255,0.6);
+  color: #ffffff;
+}
+
+body.dark .btn-volver:hover {
+  background: rgba(255,255,255,0.15);
+  color: #ffffff;
+}
+/* Fin boton volver*/
 
 .btn-dark-toggle:hover {
   background: rgba(255,255,255,0.28);
@@ -169,8 +278,8 @@ body.dark .btn-dark-toggle {
   flex-direction: column;
   max-height: 520px;
 
-  /* Modo claro: fondo azul corporativo */
-  background: #001E60;
+  /* Modo claro: fondo blanco corporativo */
+  background: var(--color-white);
   color: #ffffff;
 
   border-radius: 16px;
@@ -200,7 +309,7 @@ body.dark .menu-lateral {
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  background: rgba(255, 255, 255, 0.07);
+  background: var(--color-white);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   flex-shrink: 0;
 }
@@ -213,14 +322,14 @@ body.dark .menu-panel-header {
 .menu-panel-titulo {
   font-size: 15px;
   font-weight: 700;
-  color: #ffffff !important;
+  color: var(--color-dark) !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .badge-rol-panel {
-  background: linear-gradient(135deg, #05C3DE 0%, #05A3C0 100%);
-  color: #001E60;
+  background: var(--color-primary);
+  color: white;
   padding: 3px 10px;
   border-radius: 10px;
   font-size: 11px;
@@ -241,11 +350,12 @@ body.dark .menu-panel-header {
   background: rgba(255, 255, 255, 0.05);
 }
 .menu-scroll-area::-webkit-scrollbar-thumb {
-  background: rgba(5, 195, 222, 0.5);
+  background: var(--color-primary);
   border-radius: 10px;
+
 }
 .menu-scroll-area::-webkit-scrollbar-thumb:hover {
-  background: rgba(5, 195, 222, 0.8);
+  opacity: 0.8;
 }
 
 /* ===== ÍTEMS DIRECTOS (Home, Usuarios) ===== */
@@ -254,7 +364,7 @@ body.dark .menu-panel-header {
   align-items: center;
   gap: 10px;
   padding: 13px 18px;
-  color: #ffffff !important;
+  color: var(--color-dark) !important;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
@@ -263,21 +373,23 @@ body.dark .menu-panel-header {
 }
 
 .menu-item-directo:hover {
-  background: rgba(5, 195, 222, 0.15);
+  background: rgba(231, 29, 115, 0.08);
   padding-left: 24px;
 }
+
 
 .menu-item-arrow {
   margin-left: auto;
   font-size: 18px;
-  color: #05C3DE;
+  color: var(--color-primary);
   opacity: 0.7;
 }
+
 
 /* ===== DIVISOR ===== */
 .menu-divisor {
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.08);
   margin: 4px 12px;
 }
 
@@ -292,7 +404,7 @@ body.dark .menu-panel-header {
   padding: 13px 18px;
   background: transparent;
   border: none;
-  color: #05C3DE !important;
+  color: var(--color-primary) !important;
   cursor: pointer;
   font-size: 13px;
   font-weight: 700;
@@ -304,7 +416,7 @@ body.dark .menu-panel-header {
 
 .menu-acordeon-header:hover,
 .menu-acordeon-header.abierto {
-  background: rgba(5, 195, 222, 0.1);
+  background: rgba(231, 29, 115, 0.08);
 }
 
 .menu-acordeon-titulo {
@@ -316,7 +428,7 @@ body.dark .menu-panel-header {
 /* Chevron giratorio */
 .menu-chevron {
   font-size: 22px;
-  color: #05C3DE;
+  color: var(--color-primary);
   opacity: 0.7;
   transition: transform 0.25s ease;
   line-height: 1;
@@ -327,9 +439,10 @@ body.dark .menu-panel-header {
 
 /* ===== ACORDEÓN - BODY (sub-ítems) ===== */
 .menu-acordeon-body {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.03);
   animation: expandBody 0.2s ease;
 }
+
 
 @keyframes expandBody {
   from { opacity: 0; transform: translateY(-6px); }
@@ -341,7 +454,7 @@ body.dark .menu-panel-header {
   align-items: center;
   gap: 10px;
   padding: 11px 18px 11px 38px;
-  color: rgba(255, 255, 255, 0.85) !important;
+  color: var(--color-dark) !important;
   cursor: pointer;
   font-size: 13px;
   font-weight: 400;
@@ -350,14 +463,14 @@ body.dark .menu-panel-header {
 }
 
 .menu-subitem:hover {
-  background: rgba(5, 195, 222, 0.12);
-  color: #ffffff !important;
+  background: rgba(231, 29, 115, 0.08);
+  color: var(--color-dark) !important;
   padding-left: 44px;
 }
 
 .menu-subitem-bullet {
   font-size: 12px;
-  color: #05C3DE;
+  color: var(--color-primary);
   opacity: 0.7;
   flex-shrink: 0;
 }
@@ -395,7 +508,7 @@ body.dark .menu-panel-header {
 /* ===== PIE FIJO: CERRAR SESIÓN ===== */
 .menu-pie {
   flex-shrink: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   padding: 10px 12px;
   background: rgba(0, 0, 0, 0.15);
 }
@@ -412,10 +525,10 @@ body.dark .menu-pie {
   justify-content: center;
   gap: 10px;
   padding: 12px;
-  border: 2px solid rgba(220, 53, 69, 0.5);
+  border: 2px solid var(--color-primary);
   border-radius: 10px;
-  background: rgba(220, 53, 69, 0.1);
-  color: #ff7b86;
+  background: rgba(231, 29, 115, 0.08);
+  color: var(--color-primary);
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -441,9 +554,28 @@ body.dark .menu-pie {
     border-radius: 0 0 16px 16px;
     max-height: 80vh;
   }
+
+  .btn-volver {
+    padding: 8px 12px;
+    font-size: 13px;
 }
+}
+
+
 
 @media (max-width: 480px) {
   .navbar { height: auto; flex-direction: column; gap: 10px; padding: 12px; }
   .menu-lateral { right: 0; border-radius: 0 0 12px 12px; }
+
+.acciones-derecha{
+    width:100%;
+    justify-content:flex-end;
+}
+
+.btn-volver{
+    height:40px;
+    font-size:12px;
+    padding:6px 10px;
+}
+
 }
