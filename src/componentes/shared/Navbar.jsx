@@ -6,6 +6,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
+import logoSura from '../../imagenes/new.logo.png';
 /* import logoSura from '../../imagenes/logo-sura-white.png'; */
 
 
@@ -146,6 +147,18 @@ function Navbar() {
       )}
 
       <nav className="navbar">
+        <div className="navbar-sura-izquierda">
+          <img
+            src={logoSura}
+            alt="Logo Sura"
+            className="logo-navbar"
+            onClick={() => redirigir('/home')}
+            style={{ cursor: 'pointer' }}
+          />
+          <h3>Hola, {usuario?.nombre}</h3>
+          <span className="badge-rol">{usuario?.rol}</span>
+        </div>
+
         
 <div className="navbar-sura-izquierda">
   <h3>Hola, {usuario?.nombre}</h3>
