@@ -35,6 +35,10 @@ body.dark .navbar {
   font-size: 1.2rem;
   font-weight: 600;
   white-space: nowrap;
+
+  font-size: 1.3rem;
+  font-weight: 500;
+color: var(--color-dark) !important;
 }
 
 .logo-navbar {
@@ -88,6 +92,16 @@ body.dark .badge-rol {
 }
 
 .boton-menu {
+  background: none;
+  border: none;
+  color: #0f172a !important; 
+  font-size: 1.6rem; 
+
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 8px 12px;
+  border-radius: 8px;
   background: none;
   border: none;
   color: #0f172a !important; 
