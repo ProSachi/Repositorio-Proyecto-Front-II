@@ -176,6 +176,8 @@
 /* Franja de tipo */
 .curso-tipo-franja {
   background: var(--color-primary);
+  color: #ffffff;
+
 }
 
 /* Badge modalidad */
