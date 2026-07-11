@@ -58,8 +58,16 @@
   background-color: #ffffff;
   border: 2px solid rgba(231, 29, 115, 0.15);
   color: var(--color-dark);
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
+.dashboard-filters select option {
+  background: white;
+  color: var(--color-dark);
+}
 /* ===============================
    BOTONES
 ================================ */
@@ -180,7 +188,22 @@ body.dark .sura-table tbody tr:hover {
   color: var(--color-dark);
 }
 
+.admin-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: white;
+}
 
+.admin-form select option {
+  background-color: white;
+  color: var(--color-dark);
+}
+
+.admin-form select option:checked {
+  background: var(--color-primary);
+  color: white;
+}
 .admin-form button {
   grid-column: 1 / -1;
   padding: 10px;
@@ -210,4 +233,14 @@ body.dark .sura-table tbody tr:hover {
   .sura-table {
     min-width: 600px;
   }
+}
+.admin-form select option:hover {
+  box-shadow: 0 0 10px 100px var(--color-primary) inset;
+  color: white;
+}
+
+.admin-form select option:checked,
+.admin-form select option:selected {
+  box-shadow: 0 0 10px 100px var(--color-primary) inset;
+  color: white;
 }
