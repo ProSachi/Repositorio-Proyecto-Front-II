@@ -113,14 +113,18 @@ function ReporteC3Estudiante() {
   return (
     <div
       style={{
-        background: '#f5f6f8',
+        background: 'transparent',
         minHeight: '100vh',
         paddingBottom: '30px'
       }}
     >
       <div style={{ padding: '20px' }}>
-        <h2 style={{ margin: 0 }}>
-          Reporte de Estudiantes
+        <h2
+          style={{
+            margin: 0,
+            color: '#2d2d2d'
+          }}
+>          Reporte de Estudiantes
         </h2>
 
         <p
@@ -149,8 +153,7 @@ function ReporteC3Estudiante() {
           style={{
             padding: '10px',
             borderRadius: '8px',
-            border: '1px solid #ccc',
-            minWidth: '280px'
+            border: '2px solid rgba(231, 29, 115, 0.15)',            minWidth: '280px'
           }}
         />
 
@@ -160,7 +163,7 @@ function ReporteC3Estudiante() {
           style={{
             padding: '10px',
             borderRadius: '8px',
-            border: '1px solid #ccc'
+            border: '2px solid rgba(231, 29, 115, 0.15)'
           }}
         >
           <option value="Todos">Todos los estados</option>
@@ -174,7 +177,7 @@ function ReporteC3Estudiante() {
           style={{
             padding: '10px',
             borderRadius: '8px',
-            border: '1px solid #ccc'
+            border: '2px solid rgba(231, 29, 115, 0.15)'
           }}
         >
           <option value="Todos">Todos los programas</option>
@@ -191,7 +194,7 @@ function ReporteC3Estudiante() {
           style={{
             padding: '10px',
             borderRadius: '8px',
-            border: '1px solid #ccc'
+            border: '2px solid rgba(231, 29, 115, 0.15)'
           }}
         >
           <option value="Todos">Todos los semestres</option>
@@ -208,7 +211,7 @@ function ReporteC3Estudiante() {
           style={{
             padding: '10px',
             borderRadius: '8px',
-            border: '1px solid #ccc'
+            border: '2px solid rgba(231, 29, 115, 0.15)'
           }}
         >
           <option value="Ninguno">Ordenar promedio</option>
@@ -227,7 +230,8 @@ function ReporteC3Estudiante() {
             background: '#fff',
             borderRadius: '12px',
             overflowX: 'auto',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.08)'
+            boxShadow: 'var(--shadow)',
+            border: '1px solid rgba(231,29,115,0.08)',  
           }}
         >
           {cargando && <p style={{ padding: '12px' }}>Cargando estudiantes...</p>}
@@ -242,18 +246,35 @@ function ReporteC3Estudiante() {
           >
             <thead>
               <tr
-                style={{
-                  background: '#f0f2f5'
-                }}
-              >
-                <th style={{ padding: '12px' }}>ID</th>
-                <th style={{ padding: '12px' }}>Nombre</th>
-                <th style={{ padding: '12px' }}>Documento</th>
-                <th style={{ padding: '12px' }}>Programa</th>
-                <th style={{ padding: '12px' }}>Semestre</th>
-                <th style={{ padding: '12px' }}>Promedio</th>
-                <th style={{ padding: '12px' }}>Asistencia</th>
-                <th style={{ padding: '12px' }}>Estado</th>
+              style={{
+                background: '#E71D73',
+                color: 'white'
+              }}
+            >
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}> ID</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Nombre</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Documento</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Programa</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Semestre</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Promedio</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Asistencia</th>
+                <th    
+                  style={{padding: '12px',  
+                  color: 'white'}}>Estado</th>
               </tr>
             </thead>
 
@@ -295,7 +316,7 @@ function ReporteC3Estudiante() {
         <p
           style={{
             marginTop: '15px',
-            color: '#666'
+            color: '#2d2d2d'
           }}
         >
           Total estudiantes encontrados: {estudiantesFiltrados.length}

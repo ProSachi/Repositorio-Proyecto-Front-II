@@ -6,7 +6,7 @@
 
 .reporte-c1-header h2 {
   margin: 0;
-  color: #003366;
+  color: var(--color-dark) !important;
 }
 
 .reporte-c1-header p {
@@ -24,8 +24,9 @@
 .reporte-c1-input,
 .reporte-c1-select {
   padding: 10px;
-  border: 1px solid #d6dce5;
+  border: 2px solid rgba(231, 29, 115, 0.15);
   border-radius: 8px;
+  color: var(--color-dark);
 }
 
 .reporte-c1-input {
@@ -36,7 +37,8 @@
   background: white;
   border-radius: 14px;
   padding: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(231, 29, 115, 0.08);
   overflow-x: auto;
 }
 
@@ -46,7 +48,7 @@
 }
 
 .tabla-cursos thead {
-  background: #003366;
+  background: var(--color-primary);
   color: white;
 }
 
@@ -61,7 +63,7 @@
 }
 
 .tabla-cursos tbody tr:hover {
-  background: #f0f6ff;
+  background: rgba(231, 29, 115, 0.04);
 }
 
 .estado-activo {
