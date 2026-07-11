@@ -31,7 +31,6 @@
   right: -50px;
   width: 300px;
   height: 300px;
-  background-image: url('../../assets/tigre-circular.png'); /* ← Imagen circular del tigre */
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.05;
@@ -100,7 +99,7 @@
 }
 
 /* Fieldsets con efecto cristal */
-fieldset {
+.formulario-container fieldset {
   border: 1px solid rgba(0, 61, 165, 0.2);
   border-radius: 16px;
   padding: 20px;
@@ -111,13 +110,13 @@ fieldset {
   transition: all 0.3s ease;
 }
 
-fieldset:hover {
+.formulario-container fieldset:hover {
   border-color: rgba(0, 163, 224, 0.4);
   box-shadow: 0 4px 16px rgba(0, 163, 224, 0.15);
   transform: translateY(-2px);
 }
 
-legend {
+.formulario-container legend {
   font-weight: bold;
   color: #003DA5;
   padding: 0 12px;
@@ -312,7 +311,7 @@ legend {
 }
 
 /* Efecto de brillo sutil en hover de fieldsets */
-fieldset::after {
+.formulario-container fieldset::after {
   content: '';
   position: absolute;
   top: 0;
@@ -324,7 +323,7 @@ fieldset::after {
   pointer-events: none;
 }
 
-fieldset:hover::after {
+.formulario-container fieldset:hover::after {
   left: 100%;
 }
 

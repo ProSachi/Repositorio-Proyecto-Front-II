@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Bar } from "react-chartjs-2";
+import { CategoryScale, LinearScale, BarElement, Title } from "chart.js";
+import GraficaBarras from "../graficas/GraficaBarras";
+import GraficaTorta from "../graficas/GraficaTorta";
 import { profesorService } from "../../services/profesorService";
 
-ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
 const ReporteC2Profesor = () => {
   const [profesores, setProfesores] = useState([]);
@@ -25,7 +27,8 @@ const ReporteC2Profesor = () => {
         const profesoresTransformados = (data || []).map((profesor) => ({
           nombre: profesor.nombreCompleto || profesor.nombre || "Sin nombre",
           materia: profesor.areasAsignadas || profesor.especialidad || "Sin materia",
-          promedio: Number(profesor.promedio ?? profesor.calificacion ?? 0),
+          jornada: profesor.jornada || profesor.jornadaLaboral || "Sin jornada",
+          experiencia: profesor.experiencia || profesor.anosExperiencia || "Sin experiencia",
         }));
         setProfesores(profesoresTransformados);
       } catch {
@@ -42,17 +45,19 @@ const ReporteC2Profesor = () => {
   const profesoresFiltrados = profesores.filter(
     (prof) =>
       prof.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-      prof.materia.toLowerCase().includes(busqueda.toLowerCase())
+      prof.materia.toLowerCase().includes(busqueda.toLowerCase()) ||
+      prof.jornada.toLowerCase().includes(busqueda.toLowerCase()) ||
+      prof.experiencia.toString().toLowerCase().includes(busqueda.toLowerCase())
   );
 
   // Ordenar con click desde los titulos
   const profesoresOrdenados = [...profesoresFiltrados].sort((a, b) => {
     if (!sortConfig.key) return 0;
 
-    if (sortConfig.key === "promedio") {
-      return sortConfig.direction === "asc"
-        ? a.promedio - b.promedio
-        : b.promedio - a.promedio;
+    if (sortConfig.key === "experiencia") {
+      const expA = parseFloat(a.experiencia) || 0;
+      const expB = parseFloat(b.experiencia) || 0;
+      return sortConfig.direction === "asc" ? expA - expB : expB - expA;
     } else {
       const valA = a[sortConfig.key].toLowerCase();
       const valB = b[sortConfig.key].toLowerCase();
@@ -62,68 +67,10 @@ const ReporteC2Profesor = () => {
     }
   });
 
-  // filtro para promedio desde titulo
+  // filtro para Experiencia desde titulo
   const promedioGeneral =
-    profesoresOrdenados.reduce((acc, prof) => acc + prof.promedio, 0) /
+    profesoresOrdenados.reduce((acc, prof) => acc + parseFloat(prof.experiencia) || 0, 0) /
     (profesoresOrdenados.length || 1);
-
-  // grafica de materias y porcenyajes, aquí estámn los datos
-  const materias = [...new Set(profesoresOrdenados.map((p) => p.materia))];
-
-  // Agrupar promedios por materia
-  const promedioPorMateria = materias.map((m) => {
-    const profesoresMateria = profesoresOrdenados.filter((p) => p.materia === m);
-    const promedioMateria =
-      profesoresMateria.reduce((acc, prof) => acc + prof.promedio, 0) /
-      profesoresMateria.length;
-    return promedioMateria;
-  });
-
-  // Calcular porcentaje de cada materia según su promedio
-  const totalPromedios = promedioPorMateria.reduce((acc, val) => acc + val, 0);
-  const porcentajes =
-    totalPromedios > 0
-      ? promedioPorMateria.map((p) => Number(((p / totalPromedios) * 100).toFixed(2)))
-      : promedioPorMateria.map(() => 0);
-
-  const dataPie = {
-    labels: materias,
-    datasets: [
-      {
-        data: porcentajes,
-        backgroundColor: ["#007bff", "#28a745", "#ffc107", "#dc3545", "#6f42c1", "#17a2b8"],
-      },
-    ],
-  };
-
-  const optionsPie = {
-    plugins: {
-      legend: {
-        position: "bottom", // etiquetas de materias debajo de la torta
-        labels: { boxWidth: 20, padding: 15 },
-      },
-      datalabels: {
-        color: "#010101",
-        formatter: (value, ctx) => {
-          // Mostrar porcentajes sobre la torta
-          return `${value}%`;
-        },
-        font: { weight: "bold", size: 9 },
-      },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            return `${context.label}: ${context.raw}%`;
-          },
-        },
-      },
-    },
-    // texto del promedio
-    centerText: {
-      display: true,
-      text: `Promedio: ${promedioGeneral.toFixed(2)}`,
-    },
-  };
 
   // Función para manejar click de los titulos (orden)
   const handleSort = (key) => {
@@ -141,13 +88,12 @@ const ReporteC2Profesor = () => {
         Consulta del promedio de notas por profesor y promedio general.
       </p>
 
-      {/* gráfica de torta */}
+      {/* filtro general */}
       <div style={{ display: "flex", alignItems: "center", marginBottom: "1.5rem" }}>
-        {/* para buscarlos por el filtro */}
         <div style={{ flex: 1, marginRight: "2rem" }}>
           <input
             type="text"
-            placeholder="Filtrar por nombre o materia..."
+            placeholder="Filtrar por nombre, materia, jornada o experiencia..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             style={{
@@ -155,18 +101,29 @@ const ReporteC2Profesor = () => {
               padding: "8px",
               borderRadius: "4px",
               border: "1px solid #ccc",
-              width: "100%",
+              width: "300px",
             }}
           />
         </div>
-
-        <div style={{ width: "250px" }}>
-          {!cargando && !error && materias.length > 0 && <Pie data={dataPie} options={optionsPie} />}
-        </div>
       </div>
 
-      {cargando && <p style={{ marginBottom: "1rem" }}>Cargando profesores...</p>}
-      {error && <p style={{ marginBottom: "1rem", color: "#b42318" }}>{error}</p>}
+
+{/* contenedor de gráficas lado a lado */}
+<div style={{ display: "flex", justifyContent: "space-around", marginBottom: "1.5rem" }}>
+  {/* gráfica de torta */}
+  <div style={{ width: "350px" }}>
+    {!cargando && !error && profesoresOrdenados.length > 0 && (
+      <GraficaTorta profesores={profesoresOrdenados} />
+    )}
+  </div>
+
+  {/* gráfica de barras más compacta */}
+  <div>
+    {!cargando && !error && profesoresOrdenados.length > 0 && (
+      <GraficaBarras profesores={profesoresOrdenados} />
+    )}
+  </div>
+</div>
 
       {/* KPI general */}
       <div style={{ marginBottom: "1rem", fontWeight: "bold", color: "#222" }}>
@@ -176,54 +133,63 @@ const ReporteC2Profesor = () => {
 
       {/* Tabla */}
       {!cargando && !error && (
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-          backgroundColor: "#fff",
-          borderRadius: "6px",
-          overflow: "hidden",
-        }}
-      >
-        <thead style={{ backgroundColor: "#2185ea86" }}>
-          <tr>
-            <th
-              onClick={() => handleSort("nombre")}
-              style={{ cursor: "pointer", padding: "10px", textAlign: "left", borderBottom: "2px solid #ccc" }}
-            >
-              Profesor {sortConfig.key === "nombre" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-            </th>
-            <th
-              onClick={() => handleSort("materia")}
-              style={{ cursor: "pointer", padding: "10px", textAlign: "left", borderBottom: "2px solid #ccc" }}
-            >
-              Materia {sortConfig.key === "materia" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-            </th>
-            <th
-              onClick={() => handleSort("promedio")}
-              style={{ cursor: "pointer", padding: "10px", textAlign: "center", borderBottom: "2px solid #ccc" }}
-            >
-              Promedio {sortConfig.key === "promedio" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {profesoresOrdenados.map((prof, index) => (
-            <tr
-              key={index}
-              style={{
-                backgroundColor: index % 2 === 0 ? "#f8f9fa" : "#ffffff",
-              }}
-            >
-              <td style={{ padding: "10px" }}>{prof.nombre}</td>
-              <td style={{ padding: "10px" }}>{prof.materia}</td>
-              <td style={{ padding: "10px", textAlign: "center", fontWeight: "bold" }}>
-                {prof.promedio}
-              </td>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            backgroundColor: "#fff",
+            borderRadius: "6px",
+            overflow: "hidden",
+          }}
+        >
+          <thead style={{ backgroundColor: "#2185ea86" }}>
+            <tr>
+              <th
+                onClick={() => handleSort("nombre")}
+                style={{ cursor: "pointer", padding: "10px", textAlign: "left", borderBottom: "2px solid #ccc" }}
+              >
+                Profesor {sortConfig.key === "nombre" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </th>
+              <th
+                onClick={() => handleSort("materia")}
+                style={{ cursor: "pointer", padding: "10px", textAlign: "left", borderBottom: "2px solid #ccc" }}
+              >
+                Materia {sortConfig.key === "materia" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </th>
+              <th
+                onClick={() => handleSort("jornada")}
+                style={{ cursor: "pointer", padding: "10px", textAlign: "center", borderBottom: "2px solid #ccc" }}
+              >
+                Jornada {sortConfig.key === "jornada" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </th>
+              <th
+                onClick={() => handleSort("experiencia")}
+                style={{ cursor: "pointer", padding: "10px", textAlign: "center", borderBottom: "2px solid #ccc" }}
+              >
+                Experiencia en años {sortConfig.key === "experiencia" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {profesoresOrdenados.map((prof, index) => (
+              <tr
+                key={index}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#f8f9fa" : "#ffffff",
+                }}
+              >
+                <td style={{ padding: "10px" }}>{prof.nombre}</td>
+                <td style={{ padding: "10px" }}>{prof.materia}</td>
+                <td style={{ padding: "10px", textAlign: "center", fontWeight: "bold" }}>
+                  {prof.jornada}
+                </td>
+                <td style={{ padding: "10px", textAlign: "center", fontWeight: "bold" }}>
+                  {prof.experiencia}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );

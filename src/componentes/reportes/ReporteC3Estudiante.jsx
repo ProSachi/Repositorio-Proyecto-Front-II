@@ -48,6 +48,14 @@ function ReporteC3Estudiante() {
     cargarNotas();
   }, []);
 
+  const limpiarFiltros = () => {
+    setBusqueda('');
+    setFiltroEstado('Todos');
+    setFiltroPrograma('Todos');
+    setFiltroSemestre('Todos');
+    setOrdenPromedio('Ninguno');
+  };
+
   const programasDisponibles = [...new Set(estudiantes.map((e) => e.programa).filter(Boolean))];
   const semestresDisponibles = [...new Set(estudiantes.map((e) => e.semestre).filter((s) => s > 0))].sort((a, b) => a - b);
 
@@ -215,6 +223,21 @@ function ReporteC3Estudiante() {
           <option value="Mayor">Mayor a menor</option>
           <option value="Menor">Menor a mayor</option>
         </select>
+
+        <button
+          onClick={limpiarFiltros}
+          style={{
+            padding: '10px 16px',
+            borderRadius: '8px',
+            border: 'none',
+            background: '#dc3545',
+            color: '#fff',
+            cursor: 'pointer',
+            fontWeight: 'bold'
+          }}
+        >
+          Limpiar filtros
+        </button>
       </div>
 
       <div

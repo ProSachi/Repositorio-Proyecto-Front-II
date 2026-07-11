@@ -13,7 +13,8 @@
 
 /* ===== TÍTULO ===== */
 .profesores-container h2 {
-  color: var(--sura-azul-profundo);
+
+  color: var(--color-dark);
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
@@ -30,7 +31,7 @@
   transform: translateX(-50%);
   width: 70px;
   height: 3px;
-  background: linear-gradient(90deg, var(--sura-azul-profundo), var(--sura-aqua), var(--sura-amarillo, #FDB913));
+  background: var(--color-primary);
   border-radius: 2px;
 }
 
@@ -48,8 +49,9 @@
 
 /* ===== BOTÓN NUEVO PROFESOR ===== */
 .add-profesor-btn {
+  
   padding: 11px 26px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 25px;
@@ -63,7 +65,7 @@
 
 .add-profesor-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 30, 96, 0.35);
+  box-shadow: 0 6px 20px rgba(231, 29, 115, 0.25);
 }
 
 /* ===== BUSCADOR ===== */
@@ -73,19 +75,19 @@
   max-width: 550px;
   margin: 0 auto 30px;
   padding: 13px 22px;
-  border: 2px solid rgba(0, 30, 96, 0.15);
+  border: 2px solid rgba(0, 0, 0, 0.10);
   border-radius: 25px;
   font-size: 0.95rem;
   background: rgba(255, 255, 255, 0.95);
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   transition: all 0.3s ease;
-  box-shadow: var(--sura-sombra-sm, 0 2px 8px rgba(0,61,165,0.08));
+  box-shadow: var(--shadow);
 }
 
 .search-bar:focus {
   outline: none;
-  border-color: var(--sura-aqua);
-  box-shadow: 0 0 0 3px rgba(5, 195, 222, 0.12);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(231, 29, 115, 0.12);
   background: white;
 }
 
@@ -105,7 +107,7 @@
 }
 
 .sin-resultados-lista {
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
 }
 
 /* ===== GRID DE TARJETAS ===== */
@@ -142,7 +144,7 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--sura-azul-profundo), var(--sura-aqua));
+  background: var(--color-primary);
 }
 
 .profesor-card:hover {
@@ -162,19 +164,19 @@
   border-radius: 50%;
   object-fit: cover;
   margin: 0 auto 14px;
-  border: 3px solid var(--sura-aqua);
-  box-shadow: 0 4px 14px rgba(5, 195, 222, 0.25);
+  border: 3px solid var(--color-primary);
+  box-shadow: 0 4px 14px rgba(231, 29, 115, 0.20);
   transition: all 0.3s ease;
 }
 
 .profesor-card:hover .profesor-foto {
   transform: scale(1.07);
-  box-shadow: 0 6px 20px rgba(5, 195, 222, 0.4);
+  box-shadow: 0 6px 20px rgba(231, 29, 115, 0.30);
 }
 
 /* ===== INFO EN TARJETA ===== */
 .profesor-card h3 {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin: 0 0 8px;
   font-size: 1.15rem;
   font-weight: 700;
@@ -182,20 +184,20 @@
 
 .profesor-areas {
   font-size: 13px;
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
   margin: 0 0 10px;
 }
 
 .profesor-perfil-breve {
   font-size: 12px;
-  color: var(--sura-texto-principal);
+  color: var(--color-dark);
   margin: 0 0 12px;
   line-height: 1.5;
 }
 
 .profesor-exp {
   font-size: 12px;
-  color: var(--sura-aqua);
+  color: var(--color-primary);
   font-weight: 600;
   margin: 6px 0 12px;
 }
@@ -203,7 +205,7 @@
 /* ===== BADGES ===== */
 .badge-nivel {
   display: inline-block;
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   color: white;
   padding: 3px 12px;
   border-radius: 12px;
@@ -245,18 +247,23 @@
 }
 
 .btn-ver {
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   color: white;
 }
 
 .btn-ver:hover { transform: scale(1.07); opacity: 0.9; }
 
 .btn-editar {
-  background: linear-gradient(135deg, #FDB913 0%, #FFA000 100%);
-  color: var(--sura-azul-profundo);
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
-.btn-editar:hover { transform: scale(1.07); }
+.btn-editar:hover {
+  transform: scale(1.07);
+  background: var(--color-primary);
+  color: white;
+}
 
 .btn-desactivar {
   background: rgba(220, 53, 69, 0.12);
@@ -310,7 +317,7 @@
   align-items: center;
   gap: 16px;
   padding: 24px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   border-radius: 20px 20px 0 0;
   position: relative;
 }
@@ -370,14 +377,14 @@
 }
 
 .modal-seccion h4 {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   margin: 0 0 12px;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   padding-bottom: 8px;
-  border-bottom: 2px solid rgba(5, 195, 222, 0.25);
+  border-bottom: 2px solid rgba(231, 29, 115, 0.20);
 }
 
 .modal-item {
@@ -395,21 +402,21 @@
 
 .modal-label {
   font-weight: 600;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 13px;
   min-width: 130px;
   flex-shrink: 0;
 }
 
 .modal-valor {
-  color: var(--sura-gris-oscuro, #484949);
+  color: #555;
   font-size: 13px;
   text-align: right;
   flex: 1;
 }
 
 .modal-valor-bloque {
-  color: var(--sura-gris-oscuro, #484949);
+  color: #555;
   font-size: 13px;
   line-height: 1.6;
   margin: 8px 0 0;
@@ -421,15 +428,17 @@
   border-left: 4px solid #FDB913;
   border-radius: 8px;
   font-size: 13px;
-  color: var(--sura-texto-principal);
+  color: var(--color-dark);
   margin-top: 10px;
 }
 
 /* Scrollbar del modal */
 .modal-detalle::-webkit-scrollbar { width: 6px; }
-.modal-detalle::-webkit-scrollbar-track { background: rgba(0,30,96,0.05); border-radius: 10px; }
-.modal-detalle::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--sura-azul-profundo), var(--sura-aqua));
+.modal-detalle::-webkit-scrollbar-track {
+  background: rgba(231, 29, 115, 0.05);
+  border-radius: 10px;
+}.modal-detalle::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
   border-radius: 10px;
 }
 
@@ -444,7 +453,7 @@
 }
 
 .form-info {
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   color: white;
   padding: 28px 32px;
   text-align: center;
@@ -491,20 +500,20 @@
   border: 1px solid rgba(0, 30, 96, 0.15);
   border-radius: 14px;
   padding: 20px 22px;
-  background: rgba(0, 30, 96, 0.02);
+  background: #fff;
   transition: all 0.3s ease;
 }
 
 .profesor-form fieldset:hover {
-  border-color: rgba(5, 195, 222, 0.4);
-  box-shadow: 0 4px 14px rgba(5, 195, 222, 0.1);
+  border-color: rgba(231, 29, 115, 0.4);
+  box-shadow: 0 4px 14px rgba(231, 29, 115, 0.1);
 }
 
 .profesor-form legend {
   font-weight: 700;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   padding: 4px 14px;
-  background: rgba(5, 195, 222, 0.1);
+  background: rgba(231, 29, 115, 0.10);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -519,7 +528,7 @@
 
 .form-group label {
   font-weight: 600;
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-size: 13px;
   margin-bottom: 6px;
 }
@@ -533,7 +542,7 @@
   font-size: 14px;
   font-family: inherit;
   background: rgba(255,255,255,0.95);
-  color: var(--sura-gris-oscuro, #484949);
+  color: var(--color-dark);
   transition: all 0.3s ease;
 }
 
@@ -541,8 +550,8 @@
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--sura-aqua);
-  box-shadow: 0 0 0 3px rgba(5, 195, 222, 0.1);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(231, 29, 115, 0.1);
 }
 
 .form-group-checkbox {
@@ -554,19 +563,21 @@
   transition: background 0.2s ease;
 }
 
-.form-group-checkbox:hover { background: rgba(5,195,222,0.05); }
+.form-group-checkbox:hover {
+  background: rgba(231, 29, 115, 0.05);
+}
 
 .form-group-checkbox input {
   width: 18px;
   height: 18px;
-  accent-color: var(--sura-aqua);
+  accent-color: var(--color-primary);
   cursor: pointer;
   padding: 0;
   border: none;
 }
 
 .form-group-checkbox label {
-  color: var(--sura-azul-profundo);
+  color: var(--color-dark);
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
@@ -574,14 +585,14 @@
 
 .char-count {
   font-size: 11px;
-  color: var(--sura-texto-secundario, #666);
+  color: #666;
   text-align: right;
   margin-top: 4px;
 }
 
 .help-text {
   font-size: 12px;
-  color: var(--sura-aqua);
+  color: var(--color-primary);
   margin-top: 4px;
 }
 
@@ -597,8 +608,8 @@
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--sura-aqua);
-  box-shadow: 0 4px 12px rgba(5,195,222,0.25);
+  border: 3px solid var(--color-primary);
+  box-shadow: 0 4px 12px rgba(231, 29, 115, 0.25);
 }
 
 /* ===== BOTONES DEL FORMULARIO ===== */
@@ -611,7 +622,7 @@
 
 .btn-submit {
   padding: 13px 36px;
-  background: linear-gradient(135deg, var(--sura-azul-profundo) 0%, var(--sura-aqua) 100%);
+  background: var(--color-primary);
   color: white;
   border: none;
   border-radius: 12px;
@@ -619,12 +630,12 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 14px rgba(0, 30, 96, 0.25);
+  box-shadow: var(--shadow);
 }
 
 .btn-submit:hover:not(:disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 8px 22px rgba(0, 30, 96, 0.35);
+  box-shadow: 0 8px 22px rgba(231, 29, 115, 0.25);
 }
 
 .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
