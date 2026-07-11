@@ -145,11 +145,6 @@ function Navbar() {
       )}
 
       <nav className="navbar">
-        
-<div className="navbar-sura-izquierda">
-  <h3>Hola, {usuario?.nombre}</h3>
-  <span className="badge-rol">{usuario?.rol}</span>
-</div>
         <div className="navbar-sura-izquierda">
           <img
             src={logoSura}
