@@ -6,7 +6,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
-import logoSura from '../../imagenes/logo-sura-white.png';
+import logoSura from '../../imagenes/new.logo.png';
 
 const SECCIONES_COMUNES = [
   { id: 'home',     icono: '🏠', label: 'Home',     ruta: '/home' },
@@ -148,7 +148,7 @@ function Navbar() {
           <img
             src={logoSura}
             alt="Logo Sura"
-            className="logo-sura-navbar"
+            className="logo-navbar"
             onClick={() => redirigir('/home')}
             style={{ cursor: 'pointer' }}
           />
