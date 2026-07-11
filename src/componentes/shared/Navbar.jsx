@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Navbar.css';
 import logoSura from '../../imagenes/new.logo.png';
-/* import logoSura from '../../imagenes/logo-sura-white.png'; */
-
 
 const SECCIONES_COMUNES = [
   { id: 'home', icono: '🏠', label: 'Home', ruta: '/home' },
@@ -158,12 +156,6 @@ function Navbar() {
           <h3>Hola, {usuario?.nombre}</h3>
           <span className="badge-rol">{usuario?.rol}</span>
         </div>
-
-        
-<div className="navbar-sura-izquierda">
-  <h3>Hola, {usuario?.nombre}</h3>
-  <span className="badge-rol">{usuario?.rol}</span>
-</div>
 
         <div className="acciones-derecha">
 

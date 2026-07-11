@@ -13,6 +13,11 @@
   margin: 0 auto;
 }
 
+.favico.io{
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+}
 /* ===== HEADER ===== */
 .home-header {
   text-align: center;

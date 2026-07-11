@@ -13,22 +13,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave inferior */
   border-bottom: 1px solid #e2e8f0;
   box-sizing: border-box;
-
-  padding: 14px 32px;
-
-  /* ✅ FIX DARK MODE: color fijo dedicado, NO usa --sura-azul-profundo
-     para que no se vea afectado cuando esa variable cambia en dark mode */
-background: var(--color-white);
-color: var(--color-dark);
-
-
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  height: 68px;
-  transition: background 0.35s ease;
 }
 
 /* Dark mode: navbar se oscurece elegantemente pero NUNCA se aclara */
@@ -100,8 +84,6 @@ body.dark .badge-rol {
   display: flex;
   align-items: center;
   gap: 16px;
-  gap: 12px;
-  flex-wrap: 12px;
 }
 
 .contenedor-menu {
@@ -120,6 +102,10 @@ body.dark .badge-rol {
   color: var(--color-primary);
   padding: 8px 12px;
   border-radius: 8px;
+  background: none;
+  border: none;
+  color: #0f172a !important; 
+  font-size: 1.6rem; 
   cursor: pointer;
   padding: 4px 8px;
   display: flex;
