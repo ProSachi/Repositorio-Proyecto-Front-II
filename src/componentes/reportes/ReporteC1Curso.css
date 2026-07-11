@@ -1,0 +1,154 @@
+.reporte-c1 {
+  background: #f5f6f8;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Encabezado */
+
+.reporte-c1-header {
+  margin-bottom: 20px;
+}
+
+.reporte-c1-header h2 {
+  margin: 0;
+  color: #003366;
+  font-size: 24px;
+}
+
+.reporte-c1-header p {
+  color: #666;
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+/* Filtros */
+
+.reporte-c1-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.reporte-c1-input,
+.reporte-c1-filtros select {
+  padding: 10px;
+  border: 1px solid #d6dce5;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.reporte-c1-input {
+  min-width: 280px;
+  flex: 1;
+}
+
+/* Resumen */
+
+.informacion-reporte {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.informacion-reporte p {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+/* Tabla */
+
+.tabla-container {
+  background: white;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+}
+
+.tabla-cursos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabla-cursos thead {
+  background: #003366;
+  color: white;
+}
+
+.tabla-cursos th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tabla-cursos td {
+  padding: 13px;
+  border-bottom: 1px solid #ececec;
+}
+
+.tabla-cursos tbody tr:hover {
+  background: #f7faff;
+}
+
+/* Estados */
+
+.estado-destacado {
+  background: #fff4d6;
+  color: #b7791f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.estado-activo {
+  background: #e6f7ee;
+  color: #1e8e3e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.estado-seguimiento {
+  background: #fde8e8;
+  color: #c53030;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Mensajes */
+
+.mensaje-cargando,
+.mensaje-error {
+  padding: 20px;
+  text-align: center;
+}
+
+.mensaje-error {
+  color: #c53030;
+}
+
+/* Resumen inferior */
+
+.resumen-reporte {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.resumen-reporte p {
+  margin: 0;
+  color: #555;
+  font-weight: 500;
+}
