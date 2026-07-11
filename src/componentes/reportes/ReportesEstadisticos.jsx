@@ -1,25 +1,27 @@
-// ====================================
-// REPORTES ESTADÍSTICOS - UNIFICADO
-// Fusiona ReporAcademicos + ReporAdministrativos
-// Solo accesible para rol Profesor
-// ====================================
-
-
-import React from 'react';
+import { useState, useRef } from 'react';
 import './Reportes.css';
 import ReporteC1Curso from './ReporteC1Curso';
 import ReporteC2Profesor from './ReporteC2Profesor';
 import ReporteC3Estudiante from './ReporteC3Estudiante';
 import ReportesExportActions from './ReportesExportActions';
 
+// 1. Centralizamos la configuración. ¡Fácil de escalar y mantener!
+const TABS_CONFIG = [
+  { id: 'C1', label: 'Curso', Component: ReporteC1Curso },
+  { id: 'C2', label: 'Profesor', Component: ReporteC2Profesor },
+  { id: 'C3', label: 'Estudiante', Component: ReporteC3Estudiante },
+];
 
-const ReportesEstadisticos = () => {
-  const [tabActiva, setTabActiva] = React.useState('C1');
-  const contenidoRef = React.useRef(null);
+function ReportesEstadisticos() {
+  const [tabActiva, setTabActiva] = useState('C1');
+  const contenidoRef = useRef(null);
+
+  // Encontramos el componente activo dinámicamente
+  const TabComponenteActivo = TABS_CONFIG.find((tab) => tab.id === tabActiva)?.Component;
 
   return (
     <div className="reportes-container">
-      {/* 1. ENCABEZADO */}
+      {/* ENCABEZADO */}
       <div className="reportes-header">
         <div>
           <h2>📊 Reportes Estadísticos</h2>
@@ -27,42 +29,28 @@ const ReportesEstadisticos = () => {
         </div>
       </div>
 
-      {/* 2. SUBMENÚ DE NAVEGACIÓN */}
+      {/* SUBMENÚ DE NAVEGACIÓN (Generado automáticamente) */}
       <div className="reportes-tabs" style={{ marginTop: 16 }}>
-        <button
-          className={`tab-btn ${tabActiva === 'C1' ? 'tab-activo' : ''}`}
-          onClick={() => setTabActiva('C1')}
-        >
-          Curso
-        </button>
-
-        <button
-          className={`tab-btn ${tabActiva === 'C2' ? 'tab-activo' : ''}`}
-          onClick={() => setTabActiva('C2')}
-        >
-          Profesor
-        </button>
-
-        <button
-          className={`tab-btn ${tabActiva === 'C3' ? 'tab-activo' : ''}`}
-          onClick={() => setTabActiva('C3')}
-        >
-          Estudiante
-        </button>
+        {TABS_CONFIG.map(({ id, label }) => (
+          <button
+            key={id}
+            className={`tab-btn ${tabActiva === id ? 'tab-activo' : ''}`}
+            onClick={() => setTabActiva(id)}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
+      {/* ACCIONES DE EXPORTACIÓN */}
       <ReportesExportActions contenedorRef={contenidoRef} combinacion={tabActiva} />
 
-      {/* 3. VISTA DEL CONTENIDO (Se muestra uno a la vez) */}
+      {/* VISTA DEL CONTENIDO */}
       <div ref={contenidoRef} className="reportes-contenido" style={{ marginTop: 16 }}>
-        {tabActiva === 'C1' && <ReporteC1Curso />}
-        {tabActiva === 'C2' && <ReporteC2Profesor />}
-        {tabActiva === 'C3' && <ReporteC3Estudiante />}
+        {TabComponenteActivo && <TabComponenteActivo />}
       </div>
     </div>
-
-    
-  )
+  );
 }
 
-export default ReportesEstadisticos
+export default ReportesEstadisticos;
