@@ -132,7 +132,7 @@
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    color: white;
+    color: #000;
   }
 
   .btn-export:hover:not(:disabled) {

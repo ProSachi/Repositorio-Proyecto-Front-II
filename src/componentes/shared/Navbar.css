@@ -5,23 +5,14 @@
 /* ===== BARRA SUPERIOR ===== */
 .navbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 14px 32px;
-
-  /* ✅ FIX DARK MODE: color fijo dedicado, NO usa --sura-azul-profundo
-     para que no se vea afectado cuando esa variable cambia en dark mode */
-background: var(--color-white);
-color: var(--color-dark);
-
-
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  height: 68px;
-  transition: background 0.35s ease;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background-color: #ffffff !important; /* Fuerza el fondo blanco */
+  height: 70px; /* Ajusta la altura a tu gusto */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Sombra suave inferior */
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
 }
 
 /* Dark mode: navbar se oscurece elegantemente pero NUNCA se aclara */
@@ -33,28 +24,42 @@ body.dark .navbar {
 .navbar-sura-izquierda {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  flex-wrap: nowrap;
 }
 
 /* ✅ FIX: nombre siempre blanco dentro de la navbar */
 .navbar-sura-izquierda h3 {
   margin: 0;
+  color: #0f172a !important; /* Color gris oscuro/azul casi negro */
+  font-size: 1.2rem;
+  font-weight: 600;
+  white-space: nowrap;
+
   font-size: 1.3rem;
   font-weight: 500;
 color: var(--color-dark) !important;
 }
 
-body.dark .navbar-sura-izquierda h3 {
-  color: #ffffff !important;
+.logo-navbar {
+  height: 50px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  /* ── Bordo-Icono ── */
+  border: 2px solid #cbd5e1;    /* Un borde fino gris claro/plateado elegante */
+  border-radius: 30px;            /* Bordes ligeramente redondeados */
+  padding: 4px;                  /* Espacio interno para que el escudo no toque el borde */
+  background-color: #ffffff;   /* Fondo blanco interno por si la imagen tiene transparencias */
+  
+  /* Opcional: Una sombra muy suave para darle profundidad */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  
+  /* Animación sutil al pasar el mouse */
+  transition: all 0.2s ease-in-out;
 }
 
-.logo-sura-navbar {
-  width: 65px;
-  height: auto;
-  border-radius: 8px;
-  filter: brightness(0) invert(1);
-  transition: transform 0.3s ease;
-}
 
 .logo-sura-navbar:hover { transform: scale(1.1); }
 
@@ -76,11 +81,9 @@ body.dark .badge-rol {
 
 /* ===== BOTÓN HAMBURGUESA ===== */
 .acciones-derecha {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .contenedor-menu {
@@ -89,19 +92,26 @@ body.dark .badge-rol {
 }
 
 .boton-menu {
+  background: none;
+  border: none;
+  color: #0f172a !important; 
+  font-size: 1.6rem; 
+
   background: transparent;
   border: 2px solid var(--color-primary);
   color: var(--color-primary);
   padding: 8px 12px;
   border-radius: 8px;
+  background: none;
+  border: none;
+  color: #0f172a !important; 
+  font-size: 1.6rem; 
   cursor: pointer;
-  font-size: 1.3rem;
-  min-width: 44px;
-  height: 44px;
+  padding: 4px 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.25s ease;
+  transition: transform 0.2s ease;
 }
 
 .boton-menu:hover {
@@ -122,7 +132,7 @@ body.dark .boton-menu:hover {
 
 /* ===== BOTÓN DARK MODE TOGGLE ===== */
 .btn-dark-toggle {
-  background: rgba(255,255,255,0.15);
+  background: rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 50%;
   width: 44px;
@@ -138,26 +148,72 @@ body.dark .boton-menu:hover {
 }
  
 /* ===== BOTÓN VOLVER ===== */
-.btn-volver {
-  background: rgba(255,255,255,0.15);
-  color: #ffffff;
-  border: 2px solid rgba(255,255,255,0.4);
-  border-radius: 8px;
-  padding: 8px 14px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.25s ease;
+
+/* ===== NAVBAR CONTENEDOR PRINCIPAL ===== */
+.navbar,
+.navbar-sura-izquierda,
+.acciones-derecha{
+  display:flex;
+  align-items:center;
+}
+
+/* 🔥 CLAVE: evita recorte en cualquier modo */
+.navbar{
+  justify-content:space-between;
+  width:100%;
+  overflow:visible !important;
+  position:relative;
+}
+
+/* ===== LADO DERECHO ===== */
+.acciones-derecha{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  flex-shrink:0;
+  min-width:max-content;
+  overflow:visible !important;
+}
+
+/* ===== BOTÓN VOLVER ===== */
+.btn-volver{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  white-space:nowrap;
+
+  flex-shrink:0;
+
+  padding:10px 22px;
+
+  position:relative;
+  z-index:9999;
+}
+
+/* ===== MODO CLARO (SOLO COLORES, NO LAYOUT) ===== */
+body:not(.dark) .btn-volver{
+  background:#fff;
+  color:#001b60;
+  border:1px solid #d7deef;
+}
+
+/* ===== MODO OSCURO ===== */
+body.dark .btn-volver{
+  background:rgba(66, 63, 63, 0.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+
+.spacer{
+    width:100%;
 }
 
 .btn-volver:hover {
   background: #ffffff;
-  color: #001E60;
+  color: #001860;
 }
 
 /* Modo oscuro */
