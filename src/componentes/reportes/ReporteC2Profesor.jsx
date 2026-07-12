@@ -83,10 +83,8 @@ const ReporteC2Profesor = () => {
 
   return (
     <div style={{ padding: "1.5rem", backgroundColor: "#f7f9fc", borderRadius: "8px" }}>
-      <h3 style={{ color: "#333", marginBottom: "0.5rem" }}>Reporte C2 - Notas por Profesor</h3>
-      <p style={{ marginBottom: "1rem", color: "#555" }}>
-        Consulta del promedio de notas por profesor y promedio general.
-      </p>
+      
+
 
       {/* filtro general */}
       <div style={{ display: "flex", alignItems: "center", marginBottom: "1.5rem" }}>
@@ -100,7 +98,7 @@ const ReporteC2Profesor = () => {
               marginBottom: "1rem",
               padding: "8px",
               borderRadius: "4px",
-              border: "1px solid #ccc",
+              border: "1px solid #4b0f2997",
               width: "300px",
             }}
           />
@@ -126,9 +124,9 @@ const ReporteC2Profesor = () => {
 </div>
 
       {/* KPI general */}
-      <div style={{ marginBottom: "1rem", fontWeight: "bold", color: "#222" }}>
+      <div style={{ marginBottom: "1rem", fontWeight: "bold", color: "#070707" }}>
         Promedio general de profesores:{" "}
-        <strong style={{ color: "#007bff" }}>{promedioGeneral.toFixed(2)}</strong>
+        <strong style={{ color: "#E71D73" }}>{promedioGeneral.toFixed(2)}</strong>
       </div>
 
       {/* Tabla */}
@@ -142,7 +140,7 @@ const ReporteC2Profesor = () => {
             overflow: "hidden",
           }}
         >
-          <thead style={{ backgroundColor: "#2185ea86" }}>
+          <thead style={{ backgroundColor: "#E71D73", color: "#fff" }}>
             <tr>
               <th
                 onClick={() => handleSort("nombre")}
@@ -196,3 +194,4 @@ const ReporteC2Profesor = () => {
 };
 
 export default ReporteC2Profesor;
+

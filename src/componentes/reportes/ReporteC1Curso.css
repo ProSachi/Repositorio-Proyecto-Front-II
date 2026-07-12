@@ -34,7 +34,7 @@
 .reporte-c1-input,
 .reporte-c1-filtros select {
   padding: 10px;
-  border: 1px solid #d6dce5;
+  border: 2px solid rgba(231, 29, 115, 0.15);
   border-radius: 8px;
   font-size: 14px;
 }
@@ -77,7 +77,7 @@
 }
 
 .tabla-cursos thead {
-  background: #003366;
+  background: var(--color-primary);
   color: white;
 }
 
