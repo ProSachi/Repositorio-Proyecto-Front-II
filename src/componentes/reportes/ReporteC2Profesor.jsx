@@ -196,3 +196,4 @@ const ReporteC2Profesor = () => {
 };
 
 export default ReporteC2Profesor;
+
